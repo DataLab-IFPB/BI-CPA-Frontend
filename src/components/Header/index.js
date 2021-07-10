@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Component } from "react";
 
 import Logo from "../../assets/styles/imgs/ifpb.png";
 import Avin from "../../assets/styles/imgs/avin.png";
@@ -14,15 +14,22 @@ import {Toolbar} from "primereact/toolbar";
 
 import GAS from "../../GAS";
 
-function Header() {
-    const [participante, setParticipante] = useState(0);
-    const [email, setEmail] = useState(0);
+export default class Header extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            participante: undefined,
+            email: ""
+        };
+
+    }
+    
 
     /*useEffect(() => {
         loadParticipante();
     });*/
 
-    const loadParticipante = () => {    
+    loadParticipante = () => {    
         console.log("Instanciando new GAS()");
         let gasObj = GAS.getInstance();
         let requestObj = {
@@ -32,18 +39,23 @@ function Header() {
     }
 
     // Não precisa ser chamada aq
-    const instalarParticipante = (response) => {
-        if(GAS.getInstance().hasCPAError(response)) {
+    instalarParticipante = (RESPONSE) => {
+        if(GAS.getInstance().hasCPAError(RESPONSE)) {
             // Cuspir erro na console
             //response.message
         } else { 
             // Aq deu certo
-            setParticipante(response.response);
-            setEmail(participante.key);
+            this.setState({
+                participante: RESPONSE.response 
+                /*email: RESPONSE.response.key*/
+            });
+
+            /*setParticipante(response.response);
+            setEmail(participante.key);*/
         }
     }
     
-    const leftContents = (
+    leftContents = (
         <div>
             <Button id="separador">
             <i className="pi pi-bars p-toolbar-separator p-mr-2" style={{"fontSize":"2em"}}/>
@@ -61,27 +73,33 @@ function Header() {
         </div>
     );
     
-    const rightContents = (
+    rightContents = ()=> {
         <div id = "icone_email">
             <span id="usuario">
                 
-                {email}
+                {this.state.email}
                 
             </span>
 
             <img id="logo" src={Logo} width="40" height="40"></img>
             <img id="avin" src={Avin} width="90" height="40"></img>
         </div>
-    );
 
-    return (
-        <div id = "header" onLoad={loadParticipante()}>
-            <Toolbar id = "Toolbar" left={leftContents} right={rightContents} style={StylesHeader}></Toolbar>
-        </div>
+    };
+
+    componentDidMount() {
+        this.loadParticipante();
+      }
+
+    render(){
+        return (
+          <div id = "header" /*onLoad ={this.loadParticipante()} */ >
+              <Toolbar id = "Toolbar" left={this.leftContents} right={this.rightContents()} style={StylesHeader}></Toolbar>
+          </div>
         );
+    }
 }
 
-export default Header;
 
 
 

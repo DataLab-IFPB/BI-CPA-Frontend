@@ -8,14 +8,14 @@ import GAS from "./GAS";
 
 // Para manipular o participante
 // Ex.: extrair dados dele como o email que vai no header
-mostrarResultado = (responseObj) => {
+const mostrarResultado = (responseObj) => {
   if (GAS.getInstance().hasCPAError(responseObj))
     console.error(responseObj);
   else
     console.debug(JSON.stringify(responseObj, null, 2));
 }
 
-loadEixos = () => {    
+const loadEixos = () => {    
   console.log("Instanciando new GAS()");
   let gasObj = GAS.getInstance();
   let requestObj = {
