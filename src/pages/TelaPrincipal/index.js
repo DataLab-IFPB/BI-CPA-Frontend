@@ -29,7 +29,6 @@ function TelePrincipal() {
                 </ul>
             </CardApresentation>
         </div>
-
     );
 }
 
