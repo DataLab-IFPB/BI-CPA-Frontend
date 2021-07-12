@@ -40,14 +40,15 @@ export default class Header extends React.Component{
 
     // Não precisa ser chamada aq
     instalarParticipante = (RESPONSE) => {
+
         if(GAS.getInstance().hasCPAError(RESPONSE)) {
             // Cuspir erro na console
             //response.message
         } else { 
             // Aq deu certo
             this.setState({
-                participante: RESPONSE.response 
-                /*email: RESPONSE.response.key*/
+                participante: RESPONSE.response,
+                email: RESPONSE.response.key
             });
 
             /*setParticipante(response.response);
@@ -73,18 +74,19 @@ export default class Header extends React.Component{
         </div>
     );
     
-    rightContents = ()=> {
-        <div id = "icone_email">
-            <span id="usuario">
-                
-                {this.state.email}
-                
-            </span>
+    rightContents = () => {
+        return (
+            <div id = "icone_email">
+                <span id="usuario">
+                    
+                    {this.state.email}
+                    
+                </span>
 
-            <img id="logo" src={Logo} width="40" height="40"></img>
-            <img id="avin" src={Avin} width="90" height="40"></img>
-        </div>
-
+                <img id="logo" src={Logo} width="40" height="40"></img>
+                <img id="avin" src={Avin} width="90" height="40"></img>
+            </div>
+        );
     };
 
     componentDidMount() {
