@@ -28,7 +28,7 @@ div.course-info-question{
 .course-question h3.info-question {
     font-weight: bold;
     font-size: 11pt;
-    color: green;
+    color: rgb(50, 160, 65);
     letter-spacing: 1px;
     text-transform: uppercase;
 }
