@@ -13,6 +13,7 @@ import {Button} from "primereact/button";
 import {Toolbar} from "primereact/toolbar";
 
 import GAS from "../../GAS";
+import {Loading} from "../Loading";
 
 export default class Header extends React.Component{
     constructor(props){
@@ -29,8 +30,7 @@ export default class Header extends React.Component{
         loadParticipante();
     });*/
 
-    loadParticipante = () => {    
-        console.log("Instanciando new GAS()");
+    loadParticipante = () => {         
         let gasObj = GAS.getInstance();
         let requestObj = {
           functionName: 'MCPAParticipante.instance.SERVICE.GETParticipante'
@@ -39,8 +39,7 @@ export default class Header extends React.Component{
     }
 
     // Não precisa ser chamada aq
-    instalarParticipante = (RESPONSE) => {
-
+    instalarParticipante = (RESPONSE) => {        
         if(GAS.getInstance().hasCPAError(RESPONSE)) {
             // Cuspir erro na console
             //response.message
@@ -53,7 +52,7 @@ export default class Header extends React.Component{
 
             /*setParticipante(response.response);
             setEmail(participante.key);*/
-        }
+        }       
     }
     
     leftContents = (

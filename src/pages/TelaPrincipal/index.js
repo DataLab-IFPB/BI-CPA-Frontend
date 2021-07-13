@@ -6,7 +6,11 @@ import CardApresentation from "../../components/Card Apresentation";
 
 import CardTitle from "../../components/Card Title";
 
+import Loading from "../../components/Loading";
+
 import Styles from "./styles.css";
+
+
 
 function TelePrincipal() {
     return (
@@ -28,6 +32,7 @@ function TelePrincipal() {
                     </li>
                 </ul>
             </CardApresentation>
+            <Loading />
         </div>
     );
 }

@@ -1,0 +1,24 @@
+
+#loading {
+    background: rgba(248,249,250);
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 0.85;
+    z-index: 9999999;
+}
+        
+#SVG-Circus-74e20725-7c12-018a-eab7-40bdd51ab88d {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 15vh;
+    margin-left: calc(-15vh/2);
+    margin-top: calc(-15vh/2);
+    display: block;
+    z-index: 9999999;
+}
+ 

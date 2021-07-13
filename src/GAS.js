@@ -1,3 +1,6 @@
+import Loading from "./components/Loading";
+
+
 /**@
 * @descripton - Classe SINGLETON para acesso a requisições via window.addEventListener('message') ao iframe de um projeto Google Apps Script.
 * @summary
@@ -41,6 +44,7 @@ export default class GAS {
      * @param modulo
      */
     request(requestObject, functionCallbackName, modulo) {
+        Loading.loading(true);
         console.debug("[GAS] Inicializando GAS.request() ao servidor");
         let message = {
             functionRunParams: requestObject, //caso não funcione trocar por JSON.stringify(formObject)
@@ -65,7 +69,9 @@ export default class GAS {
         var functionCallbackParams = e.data.functionCallbackParams; //caso não funcione trocar por JSON.parse(functionRunParams)
   
         //console.debug("iframe(" + e.origin + ") solicitou ao iframe(" + window.location.href + "): googleCallbackrun(" + functionCallbackName + ")");
+        Loading.loading(false);
         targetObject[functionCallbackName](functionCallbackParams);
+        
     }
   
     hasCPAError(responseObj) {
