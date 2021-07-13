@@ -47,7 +47,7 @@ export default class Header extends React.Component{
             // Aq deu certo
             this.setState({
                 participante: RESPONSE.response,
-                email: RESPONSE.response.key
+                email: RESPONSE.response.email
             });
 
             /*setParticipante(response.response);

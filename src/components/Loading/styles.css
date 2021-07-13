@@ -1,7 +1,6 @@
 
 #loading {
     background: rgba(248,249,250);
-    display: block;
     position: absolute;
     top: 0;
     right: 0;
@@ -11,14 +10,13 @@
     z-index: 9999999;
 }
         
-#SVG-Circus-74e20725-7c12-018a-eab7-40bdd51ab88d {
+#ifpb-logo {
     position: absolute;
     top: 50%;
     left: 50%;
     height: 15vh;
-    margin-left: calc(-15vh/2);
+    margin-left: -130px;
     margin-top: calc(-15vh/2);
-    display: block;
     z-index: 9999999;
 }
  
