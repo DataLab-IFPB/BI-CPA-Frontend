@@ -1,12 +1,20 @@
 #Toolbar{
     background: var(--color-cinza-claro);
-    margin-bottom: 20px;
     border-radius: 5px;
     
 }
 div#header{
-    width: auto;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    right: 100%;
+    z-index:1000;
 }   
+
+body {
+    padding-top: 65px;
+}
+
 
 #separador{
     padding-right: 0px;
