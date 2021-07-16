@@ -8,6 +8,7 @@
     left: 0;
     opacity: 0.85;
     z-index: 9999999;
+    display: none;
 }
         
 #ifpb-logo {
@@ -18,5 +19,6 @@
     margin-left: -130px;
     margin-top: calc(-15vh/2);
     z-index: 9999999;
+    display: none;
 }
  

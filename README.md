@@ -1,6 +1,13 @@
+
+# URL dev para ambiente back-end de desenvolvimento
+Se estiver testando com {GAS}(object), use a URL /dev ou /exec disponível no projeto GAS: https://script.google.com/a/macros/ifpb.edu.br/s/AKfycbwvZi6D-udCXUXzwICweA9uZ3PGWCdPRMz2vWG-79I/dev
+Certifique-se de que o atributo GAS.GAS_DOMAIN_IFRAME, no respectivo script, possui o valor da src do iframe do back-end GAS.
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
 
 ## Etapas
 - [x] Criação de interface

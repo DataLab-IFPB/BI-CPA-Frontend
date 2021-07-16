@@ -14,7 +14,8 @@ export default class GAS {
  
     static _instance = null;
     modulo = null;
-    GAS_DOMAIN = "https://n-ca4cgm362sqjoxuzuprc7rrzekcxvqqzhi4jwwy-1lu-script.googleusercontent.com";
+    GAS_DOMAIN_IFRAME = "https://n-ca4cgm362sqjoxuzuprc7rrzekcxvqqzhi4jwwy-1lu-script.googleusercontent.com";
+    GAS_DOMAN_DEV = "https://script.google.com/a/macros/ifpb.edu.br/s/AKfycbwvZi6D-udCXUXzwICweA9uZ3PGWCdPRMz2vWG-79I/dev";
   
     constructor() {
         if (GAS._instance != null)
@@ -44,15 +45,21 @@ export default class GAS {
      * @param modulo
      */
     request(requestObject, functionCallbackName, modulo) {
-        Loading.loading(true);
         console.debug("[GAS] Inicializando GAS.request() ao servidor");
         let message = {
             functionRunParams: requestObject, //caso não funcione trocar por JSON.stringify(formObject)
             functionCallbackName: functionCallbackName
         };
-  
+        
         this.modulo = modulo;
-        window.parent.postMessage(message, this.GAS_DOMAIN);
+        if (window.location !== window.parent.location) {
+            Loading.loading(true);
+            window.parent.postMessage(message, this.GAS_DOMAIN_IFRAME);
+        } else {
+            console.log(`A app não está carregada dentro de um iframe de projeto GAS com src = "${this.GAS_DOMAIN_IFRAME}" 
+            ou não está sendo acessada pela URL de produção e desenvolvimento do mesmo. Tente acessar pela URL de desenvolvimento ${this.GAS_DOMAN_DEV}`);
+        }
+        
     }
   
     /**
@@ -62,7 +69,7 @@ export default class GAS {
      */
     callback(e, targetObject) {
         console.debug("[GAS] Inicializando GAS.callback() no app cliente");
-        if (e.origin !== this.GAS_DOMAIN)
+        if (e.origin !== this.GAS_DOMAIN_IFRAME)
             return;
   
         var functionCallbackName = e.data.functionCallbackName;

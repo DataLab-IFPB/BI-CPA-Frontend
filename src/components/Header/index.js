@@ -30,7 +30,7 @@ export default class Header extends React.Component{
         loadParticipante();
     });*/
 
-    loadParticipante = () => {         
+    loadParticipante = () => {     
         let gasObj = GAS.getInstance();
         let requestObj = {
           functionName: 'MCPAParticipante.instance.SERVICE.GETParticipante'
@@ -89,7 +89,7 @@ export default class Header extends React.Component{
     };
 
     componentDidMount() {
-        //this.loadParticipante();
+        this.loadParticipante();
       }
 
     render(){
