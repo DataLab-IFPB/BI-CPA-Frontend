@@ -1,7 +1,7 @@
 import React, { useState, Component } from "react";
 
-import Logo from "../../assets/styles/imgs/ifpb.png";
-import Avin from "../../assets/styles/imgs/avin.png";
+import Ifpb from "../../assets/styles/imgs/ifpb.svg";
+import Avin from "../../assets/styles/imgs/avin.svg";
 
 import {PrimeReactCSS} from "primereact/resources/themes/fluent-light/theme.css";
 import {PrimeReactMinCsss} from "primereact/resources/primereact.min.css";
@@ -82,8 +82,8 @@ export default class Header extends React.Component{
                     
                 </span>
 
-                <img id="logo" src={Logo} width="40" height="40"></img>
-                <img id="avin" src={Avin} width="90" height="40"></img>
+                <img id="ifpb" src={Ifpb}></img>
+                <img id="avin" src={Avin}></img>
             </div>
         );
     };

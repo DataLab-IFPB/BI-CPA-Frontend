@@ -12,7 +12,7 @@ div#header{
 }   
 
 body {
-    padding-top: 65px;
+    padding-top: 100px;
 }
 
 
@@ -45,11 +45,13 @@ body {
     color: black;
     border-style: none;
 }
-#logo{
+#ifpb{
+    height: 50px;
     margin-right: 10px;
 }
 #avin{
     margin-right: 10px;
+    height: 25px;
 }
 #usuario{
     font-size: 17px;
