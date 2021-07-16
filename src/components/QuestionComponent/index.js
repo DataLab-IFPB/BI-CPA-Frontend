@@ -5,11 +5,11 @@ import StylesQuestion from "./styles.css";
 function QuestionComponent(props){
     return(
  
-                        <div className="questions-continer">
-                            <span className="Texto">
+                        <div className="questions-container">
+                            <span className="indicador-titulo">
                                 {props.text}
                             </span>
-                            <span className="group-radio" style={{"background":props.color}}>
+                            <span className="indicador-respostas" style={{"background":props.color}}>
                                 <span className="radio">
                                         <input type="radio" name={props.group}></input>
                                             <span className="classificacao">

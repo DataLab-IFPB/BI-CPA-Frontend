@@ -1,35 +1,44 @@
-
-.Texto{
+.questions-container{
+    display: flex;    
+    align-items: center;
     font-size: 11px;
-    text-align: right;
-    font-weight: bold;
-    width: 25%;
+    padding: 10px;
 }
 
-.group-radio{
+.indicador-titulo {
+    font-weight: bold;
+    width: 20%;
+    word-wrap: break-word;
+}
+
+.indicador-respostas{
     border-radius: 1px;
     margin-left: 10px;
-    display: flex;
     padding: 10px;
-    width: 100%;
+    display: flex;
+    align-items: center;
+    width: 80%;
 }
+
 
 .radio{   
     display: flex;
-    width: 100%;
-}
-
-
-.questions-continer{
-    display: flex;    
+    align-items: center;
 }
 
 .classificacao{
-    margin-left: 5px;
-    margin-right: 10px;
-    font-size: 10px;
+    margin: 5px;
     font-weight: normal;
     text-align: left;
-    width: 100%;
 }
 
+
+@media (max-width: 720px) {
+   .indicador-respostas {
+     flex-direction: column;
+  }
+
+  .radio {
+    width: 100%;
+  }
+}
