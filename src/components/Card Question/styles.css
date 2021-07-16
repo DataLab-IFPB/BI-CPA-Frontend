@@ -12,17 +12,15 @@
     background-color: #fff;
     box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
     display: flex;
-    max-width: 95%;
-    margin: 20px;
     overflow: hidden;
-    width: 685px;
+    width: auto;
     height: 100%;
     position: relative;
 }
 
 div.course-info-question{
     border-style: none;
-    margin-left: 20px;
+    margin-left: 10px;
 }
 
 .course-question h3.info-question {

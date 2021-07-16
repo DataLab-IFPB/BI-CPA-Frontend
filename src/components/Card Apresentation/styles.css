@@ -6,11 +6,16 @@ div.principal{
     display: flex;
     justify-content: center;
 }
+
+div.principal div {
+    max-width: 1080px;
+    min-width: 720px;
+}
+
 div.content{
     padding: 10px;   
 }
 div.card {
-    max-width: 100%;
     border: #A9A9A9 solid 1.5px;
 }
 
@@ -33,8 +38,9 @@ div.card-item ul.lista-questionarios {
     list-style: none;
 }
 
-div.card-item ul.lista-questionarios li.item-questionario {
+div.card div.content ul.lista-questionarios li.item-questionario {
     padding: 5px;
+    margin: 20px;
 }
 ul{
     list-style: none;

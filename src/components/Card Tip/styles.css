@@ -3,7 +3,6 @@ div#principal_dica{
     border: black solid 1px;
     padding: 10px;
     margin: 10px;
-    max-width: 50%;
 }
 p#texto_dica{
     font-size: 11.5pt;

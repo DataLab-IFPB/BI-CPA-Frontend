@@ -11,11 +11,9 @@
     background-color: #fff;
     box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
     display: flex;
-    max-width: 95%;
-    margin: 20px;
     overflow: hidden;
-    width: 685px;
     height: 125px;
+    width: auto;
     position: relative;
 }
 
@@ -43,10 +41,10 @@ div.course-info{
     box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
     color: #fff;
     font-size: 16px;
-    padding: 12px 17px;
+    padding: 10px 10px;
     letter-spacing: 1px;
     background-color: var(--color-text-base);
-    right: 30px;
+    right: 0px;
     bottom: 17px;
     position: absolute;
 }

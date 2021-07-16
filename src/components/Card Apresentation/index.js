@@ -5,6 +5,7 @@ import "./styles.css";
 function ApresentationCard(props) {
     return (
         <div className="principal">
+        <div>
             <div className="card">
 
                 <div className="card-item" id="card-item-title">
@@ -14,6 +15,7 @@ function ApresentationCard(props) {
                     {props.children}
                 </div>
             </div>
+        </div>
         </div>
     );
 }

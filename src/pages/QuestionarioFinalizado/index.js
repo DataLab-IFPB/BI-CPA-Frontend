@@ -16,10 +16,10 @@ function QuestionarioFinalizado() {
     return (
         <div>
             <Header />
-            <div className="div_principal_questionarioboas_vindas">
+            <div className="principal">
                 <CardTitle temBotao={false} />
             </div>
-            <div className="div_principal_questionarioboas_vindas">
+            <div className="principal">
                 <CardTip />
             </div >
             <CardApresentation title="Confirmar envio do questionario">

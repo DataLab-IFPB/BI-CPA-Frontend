@@ -26,6 +26,10 @@ body {
   background: white;
 }
 
+body div {
+  width: 100%;
+}
+
 #root {
   display: flex;
   justify-content: center;

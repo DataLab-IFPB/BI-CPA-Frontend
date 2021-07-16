@@ -89,7 +89,7 @@ export default class Header extends React.Component{
     };
 
     componentDidMount() {
-        this.loadParticipante();
+        //this.loadParticipante();
       }
 
     render(){

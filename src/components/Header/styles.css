@@ -5,8 +5,8 @@
     
 }
 div#header{
-    width: 100vw;
-}
+    width: auto;
+}   
 
 #separador{
     padding-right: 0px;
@@ -53,4 +53,5 @@ div#header{
 #icone_email{
     display:flex;
     align-items: center;
+    justify-content: flex-end;
 }

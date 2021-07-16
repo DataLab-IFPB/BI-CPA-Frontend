@@ -10,10 +10,10 @@ function QuestionarioGrupoQuestao() {
     return (
         <div>
             <Header />
-            <div className="div_principal_questionarioboas_vindas">
+            <div className="principal">
                 <CardTitle temBotao={false} />
             </div>
-            <div className="div_principal_questionarioboas_vindas">
+            <div className="principal">
                 <CardTip />
             </div>
                 <CardApresentation title="EIXO 3: POLÍTICAS ACADÊMICAS - DIMENSÃO 2: POLÍTICAS PARA O ENSINO, A PESQUISA EA EXTENSÃO">

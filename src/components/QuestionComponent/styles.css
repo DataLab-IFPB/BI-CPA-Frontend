@@ -1,36 +1,35 @@
 
 .Texto{
     font-size: 11px;
-    margin-top: 15px;
     text-align: right;
     font-weight: bold;
+    width: 25%;
 }
 
 .group-radio{
     border-radius: 1px;
     margin-left: 10px;
-    height: 80px;
-    width: 100%;
     display: flex;
-    justify-content: center;
+    padding: 10px;
+
 }
 
-.radio{
-    margin-top: 25px;
-    margin-left: 2px;
+.radio{   
     display: flex;
-    justify-content: center;
-    
+    width: 100%;
 }
+
+
 .questions-continer{
-    display: flex;
-    justify-content: center;
-    
+    display: flex;    
 }
+
 .classificacao{
     margin-left: 5px;
-    margin-right: 5px;
-    font-size: 11px;
+    margin-right: 10px;
+    font-size: 10px;
     font-weight: normal;
+    text-align: left;
+    width: 100%;
 }
 
