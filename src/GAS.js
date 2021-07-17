@@ -66,12 +66,15 @@ export default class GAS {
         
     }
 
-    request = async (requestObject) => {        
+    request = async (service, ...serviceParams) => {        
         console.debug("[GAS] Inicializando GAS.request() ao servidor");
         if (window.location !== window.parent.location) {
             let responseIndex = Object.entries(this.responses).length;
             let message = {
-                functionRunParams: requestObject,
+                functionRunParams: {
+                    functionName: service,
+                    functionParams: serviceParams
+                },
                 functionCallbackName: responseIndex //caso não funcione trocar por JSON.stringify(formObject)                
             };            
             Loading.loading(true);
@@ -80,6 +83,7 @@ export default class GAS {
         } else {
             let error =`A app não está carregada dentro de um iframe de projeto GAS com src = "${this.GAS_DOMAIN_IFRAME}" 
             ou não está sendo acessada pela URL de produção e desenvolvimento do mesmo. Tente acessar pela URL de desenvolvimento ${this.GAS_DOMAN_DEV}`;
+            console.error(error);
             throw new Error(error);
         }            
     }
