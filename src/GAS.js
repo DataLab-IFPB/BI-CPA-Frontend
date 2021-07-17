@@ -24,6 +24,9 @@ export default class GAS {
         //     throw new Error('Esta classe é um singleton e somente pode ser instanciada via GAS.getInstance()');
         window.removeEventListener('message', this.handleWindowMessage);
         window.addEventListener('message', this.handleWindowMessage);
+
+        this.responses = {};
+
         console.debug('[GAS] Listener window(message) instalado no app cliente');
     }
   
@@ -44,7 +47,8 @@ export default class GAS {
      * @param functionCallbackName
      * @param modulo
      */
-    request(requestObject, functionCallbackName, modulo) {
+    //request = async (requestObject, functionCallbackName, modulo) => {
+    request0(requestObject, functionCallbackName, modulo) {
         console.debug("[GAS] Inicializando GAS.request() ao servidor");
         let message = {
             functionRunParams: requestObject, //caso não funcione trocar por JSON.stringify(formObject)
@@ -56,12 +60,51 @@ export default class GAS {
             Loading.loading(true);
             window.parent.postMessage(message, this.GAS_DOMAIN_IFRAME);
         } else {
-            console.log(`A app não está carregada dentro de um iframe de projeto GAS com src = "${this.GAS_DOMAIN_IFRAME}" 
+            console.error(`A app não está carregada dentro de um iframe de projeto GAS com src = "${this.GAS_DOMAIN_IFRAME}" 
             ou não está sendo acessada pela URL de produção e desenvolvimento do mesmo. Tente acessar pela URL de desenvolvimento ${this.GAS_DOMAN_DEV}`);
         }
         
     }
+
+    request = async (requestObject) => {        
+        console.debug("[GAS] Inicializando GAS.request() ao servidor");
+        if (window.location !== window.parent.location) {
+            let responseIndex = Object.entries(this.responses).length;
+            let message = {
+                functionRunParams: requestObject,
+                functionCallbackName: responseIndex //caso não funcione trocar por JSON.stringify(formObject)                
+            };            
+            Loading.loading(true);
+            window.parent.postMessage(message, this.GAS_DOMAIN_IFRAME);            
+            return await this.response(responseIndex);
+        } else {
+            let error =`A app não está carregada dentro de um iframe de projeto GAS com src = "${this.GAS_DOMAIN_IFRAME}" 
+            ou não está sendo acessada pela URL de produção e desenvolvimento do mesmo. Tente acessar pela URL de desenvolvimento ${this.GAS_DOMAN_DEV}`;
+            throw new Error(error);
+        }            
+    }
   
+    response(responseIndex) {
+        this.responses[responseIndex+''] = {};
+        return new Promise((resolve) => {            
+            let responseIntervalId = setInterval(() => {
+                if (this.responses[responseIndex].done) {
+                    clearInterval(this.responses[responseIndex].intervalId);
+                    let response = this.responses[responseIndex].response;
+                    delete this.responses[responseIndex];
+                    // console.log(this.responses);
+                    if (this.hasCPAError(response)) {
+                        console.error(response);
+                        throw response;
+                    }
+                    resolve(response);
+                }
+            }, 500);
+            this.responses[responseIndex].done = false;
+            this.responses[responseIndex].intervalId = responseIntervalId;
+        });
+    }
+
     /**
      * Invocada via iframe pai, quando algo é retornado pelo fim de google.script.run lá na cloud
      * @param e   função a ser chamada no iframe filho
@@ -77,8 +120,15 @@ export default class GAS {
   
         //console.debug("iframe(" + e.origin + ") solicitou ao iframe(" + window.location.href + "): googleCallbackrun(" + functionCallbackName + ")");
         Loading.loading(false);
-        targetObject[functionCallbackName](functionCallbackParams);
-        
+        //targetObject[functionCallbackName](functionCallbackParams);
+        // console.log(functionCallbackName);
+        // console.log(functionCallbackParams);
+        //console.log(this.responses);
+
+        if (this.responses[functionCallbackName] !== undefined) {
+            this.responses[functionCallbackName].response = functionCallbackParams;
+            this.responses[functionCallbackName].done = true;        
+        }
     }
   
     hasCPAError(responseObj) {
@@ -86,46 +136,3 @@ export default class GAS {
     }
   
  }
-  
-  
- /*
-  
- // Request GAS
- export const REQUESTGAS = {
-    functionName: '', //exemplo: 'CPAMInstrumentoPainelApropriador.SERVICE.listar'
-    functionParams: []
- }
-  
- // Response do GAS
- export const RESPONSE = {
-    response: null,
-    message: null,
-    messagerType: null
- }
-  
- // Chamadas resource no GAS. Substituto da URL
- export const RESOURCE_EIXO ={
-    functionName: 'MCPAMetamodelo.instance.SERVICE.GETEixos'
- }
-  
- export const RESOURCE_SEGMENTO = {
-    functionName: 'MCPAMetamodelo.instance.SERVICE.GETTiposSegmentos'
- }
-  
- export const RESOURCE_NIVEISORGANIZACIONAIS = {
-    functionName: 'MCPAMetamodelo.instance.SERVICE.GETTiposNiveisOrganizacionais'
- }
-  
- export const RESOURCE_PAINEL_APROPRIADOR = {
-    functionName: 'MCPAInstrumentoPainelApropriador.instance.SERVICE.GETListarTodos'
- }
-  
- export const RESOURCE_TOPICOS_GETListarTodos = {
-    functionName: 'MCPAInstrumentoDiagnosticadorTopico.instance.SERVICE.GETListarTodos'
- }
-  
- export const RESOURCE_ACAO_MELHORIA_GETListarTodos = {
-    functionName: 'MCPAInstrumentoDiagnosticadorAcaoMelhoria.instance.SERVICE.GETListarTodos'
- }
- */
- 

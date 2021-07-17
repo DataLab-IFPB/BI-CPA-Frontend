@@ -35,25 +35,17 @@ export default class Header extends React.Component{
         let requestObj = {
           functionName: 'MCPAParticipante.instance.SERVICE.GETParticipante'
         };
-        gasObj.request(requestObj, 'instalarParticipante', this);
-    }
+        //gasObj.request(requestObj, 'instalarParticipante', this);
 
-    // Não precisa ser chamada aq
-    instalarParticipante = (RESPONSE) => {        
-        if(GAS.getInstance().hasCPAError(RESPONSE)) {
-            // Cuspir erro na console
-            //response.message
-        } else { 
-            // Aq deu certo
+        gasObj.request(requestObj)
+        .then(RESPONSE => {
             this.setState({
                 participante: RESPONSE.response,
                 email: RESPONSE.response.email
             });
-
-            /*setParticipante(response.response);
-            setEmail(participante.key);*/
-        }       
-    }
+        })
+        .catch((e) => {});
+    }   
     
     leftContents = (
         <div>
