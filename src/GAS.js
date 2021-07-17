@@ -66,12 +66,15 @@ export default class GAS {
         
     }
 
-    request = async (requestObject) => {        
+    request = async (service, ...serviceParams) => {        
         console.debug("[GAS] Inicializando GAS.request() ao servidor");
         if (window.location !== window.parent.location) {
             let responseIndex = Object.entries(this.responses).length;
             let message = {
-                functionRunParams: requestObject,
+                functionRunParams: {
+                    functionName: service,
+                    functionParams: serviceParams
+                },
                 functionCallbackName: responseIndex //caso não funcione trocar por JSON.stringify(formObject)                
             };            
             Loading.loading(true);

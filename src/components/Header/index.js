@@ -32,12 +32,7 @@ export default class Header extends React.Component{
 
     loadParticipante = () => {     
         let gasObj = GAS.getInstance();
-        let requestObj = {
-          functionName: 'MCPAParticipante.instance.SERVICE.GETParticipante'
-        };
-        //gasObj.request(requestObj, 'instalarParticipante', this);
-
-        gasObj.request(requestObj)
+        gasObj.request('MCPAParticipante.instance.SERVICE.GETParticipante', 'acauan.gomes@academico.ifpb.edu.br')
         .then(RESPONSE => {
             this.setState({
                 participante: RESPONSE.response,
@@ -59,9 +54,7 @@ export default class Header extends React.Component{
             
             <Button id="sign-out">
             <i className="pi pi-sign-out" style={{"fontSize":"2em"}}/>
-            </Button>
-            
-            
+            </Button>          
         </div>
     );
     
