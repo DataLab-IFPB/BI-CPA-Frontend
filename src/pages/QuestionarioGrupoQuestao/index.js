@@ -3,9 +3,8 @@ import Header from "../../components/Header";
 //import CardApresentation from "../../components/Card Apresentation";
 import CardTitle from "../../components/Card Title";
 import CardTip from "../../components/Card Tip";
-import Styles from "./styles.css";
 import CardQuestion from "../../components/Card Question";
-import QuestionComponent from "../../components/QuestionComponent";
+
 function QuestionarioGrupoQuestao() {
     return (
         <div>
