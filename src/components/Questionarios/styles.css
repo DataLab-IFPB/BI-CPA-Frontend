@@ -1,0 +1,106 @@
+/* necessário para obter variáveis do tema, como cores entre outras... */
+@import 'primereact/resources/themes/saga-green/theme.css';
+
+.questionarios .p-card.p-component {
+    border-left: 7px solid var(--primary-color);
+    margin: 10px 0px;
+}
+
+
+.questionarios .p-card-title {
+    color: var(--primary-color);
+    text-transform: uppercase;
+    font-size: 1rem;
+    font-weight: normal;
+    animation: blink 1s ease infinite;
+    
+}
+
+.questionarios .p-card-subtitle {
+    color: var(--primary-color);
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+@keyframes blink{
+    0%{letter-spacing: 0.5px; opacity: 50%;}
+    100%{letter-spacing: 0px; opacity: 100%;}
+}
+
+.questionarios .p-card-content {
+    color: var(--primary-color);
+    font-size: 1.25rem;
+    padding: 0px;
+    font-weight: bold;
+}
+
+
+.questionarios .questionario-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.questionarios .questionario-actions .p-button  {
+    margin-left: 5px;
+}
+
+.questionarios .p-card.p-component.respondido {
+    border-left: 7px solid var(--pink-500);
+}
+.questionarios .p-card-title.respondido,
+.questionarios .p-card-subtitle.respondido,
+.questionarios .p-card-content.respondido {
+    color: var(--pink-500);
+}
+
+
+
+/* antigo */
+
+div {
+    border-radius: 4px;
+}
+
+div.principal{
+    display: flex;
+    justify-content: center;
+}
+
+div.principal div {
+    max-width: 720px;  
+}
+
+div.content{
+    padding: 10px;   
+}
+div.card {
+    border: #A9A9A9 solid 1.5px;
+}
+
+div.card-item {
+    border-style: none;
+    padding: 15px;
+}
+
+div#card-item-title {
+    background-color: var(--color-cinza-claro);
+}
+
+div#card-item-title h1.title {
+    color: var(--color-text-base);
+    font-kerning: normal;
+    font-size: 13pt;
+}
+
+div.card-item ul.lista-questionarios {
+    list-style: none;
+}
+
+div.card div.content ul.lista-questionarios li.item-questionario {
+    padding: 5px;
+    margin: 20px;
+}
+ul{
+    list-style: none;
+}

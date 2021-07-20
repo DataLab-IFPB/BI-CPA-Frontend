@@ -1,0 +1,144 @@
+/* necessário para obter variáveis do tema, como cores entre outras... */
+@import 'primereact/resources/themes/saga-green/theme.css';
+
+.questionario {
+}
+
+.questionario .p-card.p-component {
+    border-left: 7px solid var(--primary-color);
+    margin: 10px 0px;
+}
+
+
+.questionario .p-card-title {
+    /* color: var(--primary-color); */
+    /* text-transform: uppercase; */
+    /* font-size: 1rem; */
+    font-weight: normal;
+    background-color: var(--primary-color);
+    color:white;
+    padding: 20px;
+}
+
+.questionario .p-card-subtitle {
+    color: var(--primary-color);
+    text-transform: uppercase;
+    /* font-size: 1.5rem; */
+    font-weight: bold;
+}
+
+.questionario .p-card-content {
+    color: var(--primary-color);
+    /* font-size: 1.25rem; */
+    padding: 0px;
+    font-weight: bold;
+}
+
+
+.questionario .questionario-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+
+.questionario .questionario-actions .p-button  {
+    margin-left: 5px;
+    animation: zoom-in-zoom-out 3s linear; 
+    animation-iteration-count: 3;
+}
+@keyframes blink{
+    0%{opacity: 0;}
+    50%{opacity: .5;}
+    100%{opacity: 1;}
+}
+
+@keyframes zoom-in-zoom-out {
+    0% {
+        transform: scale(1, 1);
+    }
+    50% {
+        transform: scale(1.15, 1.15);
+    }
+    100% {
+        transform: scale(1, 1);
+    }
+}
+
+.questionario .p-card.p-component.respondido {
+    border-left: 7px solid var(--pink-500);
+}
+.questionario .p-card-title.respondido,
+.questionario .p-card-subtitle.respondido,
+.questionario .p-card-content.respondido {
+    color: var(--pink-500);
+}
+
+.questionario .p-steps {
+   position: fixed;
+   top: 80px;
+   left: 0px;
+   right: 0px;
+   background: white;
+   padding-bottom: 20px;
+   padding-top: 20px;
+   z-index: 10000;
+   border-bottom: 5px solid var(--primary-color);
+   border-top: 5px solid var(--primary-color);
+}
+
+.questionario .p-steps .p-steps-item {
+}
+
+.questionario .p-steps-current .p-steps-title {
+    /* color: var(--primary-color)!important; */
+    display: block;
+    white-space: normal;
+    word-wrap: break-word;
+    text-align: center;
+    color: var(--primary-color)!important;
+}
+
+.questionario .p-steps-item {
+    padding-left: 1.5rem;
+}
+
+.questionario .p-steps-title {
+    display: none;
+    text-transform: uppercase;
+}
+
+.questionario .p-steps + *{
+    padding-top: 8rem;
+}
+
+.questionario .indicadores {
+    font-size: 0.85rem;
+}
+
+.questionario .indicadores .p-datatable-tbody tr > td + td {
+    /* color: red;
+    border: 1px solid; */    
+    flex-flow: column;
+}
+
+.questionario .indicadores .p-field-radiobutton {
+    display: flex;
+    padding: 0.5rem 0rem;
+}
+
+@media only screen and (min-width: 80rem) {
+    .questionario .indicadores .p-datatable-tbody tr > td + td {
+        display: flex;
+        flex-flow: row;      
+    }
+    
+    .questionario .indicadores .p-field-radiobutton {        
+        display: flex;
+        padding: 0rem 0.5rem;
+    }
+}
+
+.prepos-etapa .p-panel-content p {
+    padding: 20px;
+}

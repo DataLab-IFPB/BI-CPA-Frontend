@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "../../components/Header";
-import CardApresentation from "../../components/Card Apresentation";
+//import CardApresentation from "../../components/Card Apresentation";
 import CardTitle from "../../components/Card Title";
 import CardTip from "../../components/Card Tip";
 import Styles from "./styles.css";
@@ -16,7 +16,7 @@ function QuestionarioGrupoQuestao() {
             <div className="principal">
                 <CardTip />
             </div>
-                <CardApresentation title="EIXO 3: POLÍTICAS ACADÊMICAS - DIMENSÃO 2: POLÍTICAS PARA O ENSINO, A PESQUISA EA EXTENSÃO">
+                {/* <CardApresentation title="EIXO 3: POLÍTICAS ACADÊMICAS - DIMENSÃO 2: POLÍTICAS PARA O ENSINO, A PESQUISA EA EXTENSÃO"> */}
 
                     <CardQuestion 
                     text1="Projeto Pedagógico do Curso (PPC)" 
@@ -53,7 +53,7 @@ function QuestionarioGrupoQuestao() {
                             <button className="btn_cancelar">ETAPA ANTERIOR</button>
                             <button className="btn_participar">PRÓXIMA ETAPA</button>
                     </div>
-                </CardApresentation>
+                {/* </CardApresentation> */}
                 
         </div>
 

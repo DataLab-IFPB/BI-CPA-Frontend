@@ -2,7 +2,7 @@ import React from "react";
 
 import Header from "../../components/Header";
 
-import CardApresentation from "../../components/Card Apresentation";
+//import CardApresentation from "../../components/Card Apresentation";
 
 import CardTitle from "../../components/Card Title";
 
@@ -22,7 +22,7 @@ function QuestionarioFinalizado() {
             <div className="principal">
                 <CardTip />
             </div >
-            <CardApresentation title="Confirmar envio do questionario">
+            {/* <CardApresentation title="Confirmar envio do questionario"> */}
                 <CardMensagem text={
                     <div>
                         <p>Caro Estudante, </p>
@@ -36,7 +36,7 @@ function QuestionarioFinalizado() {
                             Comissão Própria de Avaliação (CPA/IFPB)
                         </p>
                     </div>} textoBotaoVermelho="Voltar etapa" textoBotaoVerde="Enviar"/>
-            </CardApresentation>
+            {/* </CardApresentation> */}
         </div>
     );
 }

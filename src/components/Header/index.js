@@ -3,84 +3,71 @@ import React, { useState, Component } from "react";
 import Ifpb from "../../assets/styles/imgs/ifpb.svg";
 import Avin from "../../assets/styles/imgs/avin.svg";
 
-import {PrimeReactCSS} from "primereact/resources/themes/fluent-light/theme.css";
-import {PrimeReactMinCsss} from "primereact/resources/primereact.min.css";
-import {Icons} from "primeicons/primeicons.css";
+import { StylesHeader } from "../Header/styles.css";
 
-import {StylesHeader} from "../Header/styles.css";
+import { Button } from "primereact/button";
+import { Toolbar } from "primereact/toolbar";
 
-import {Button} from "primereact/button";
-import {Toolbar} from "primereact/toolbar";
-
-import GAS from "../../GAS";
-import {Loading} from "../Loading";
-
-export default class Header extends React.Component{
-    constructor(props){
+export default class Header extends React.Component {
+    constructor(props) {
         super(props);
-        this.state = {
-            participante: undefined,
-            email: ""
-        };
-
     }
     
-
-    /*useEffect(() => {
-        loadParticipante();
-    });*/
-
-    loadParticipante = () => {     
-        let gasObj = GAS.getInstance();
-        let requestObj = {
-          functionName: 'MCPAParticipante.instance.SERVICE.GETParticipante'
-        };
-        gasObj.request(requestObj, 'instalarParticipante', this);
+    state = {
+        usuario: undefined
     }
 
-    // Não precisa ser chamada aq
-    instalarParticipante = (RESPONSE) => {        
-        if(GAS.getInstance().hasCPAError(RESPONSE)) {
-            // Cuspir erro na console
-            //response.message
-        } else { 
-            // Aq deu certo
-            this.setState({
-                participante: RESPONSE.response,
-                email: RESPONSE.response.email
-            });
+    // componentWillReceiveProps(props) {
+    //     if (props.usuario !== this.state.usuario) {
+    //         this.setState({ usuario: props.usuario });
+    //     }
+    // }
 
-            /*setParticipante(response.response);
-            setEmail(participante.key);*/
-        }       
+    static getDerivedStateFromProps(props, state) {
+        // Store prevId in state so we can compare when props change.
+        // Clear out previously-loaded data (so we don't render stale stuff).
+        if (props.usuario !== state.usuario) {
+            return {
+                usuario: props.usuario
+                // externalData: null,
+                // prevId: props.id,
+            };
+        }
+        // No state update necessary
+        return null;
     }
-    
+
+    componentDidMount() {
+        this.setState({usuario: this.props.usuario});
+    }
+
     leftContents = (
         <div>
             <Button id="separador">
-            <i className="pi pi-bars p-toolbar-separator p-mr-2" style={{"fontSize":"2em"}}/>
+                <i className="pi pi-bars p-toolbar-separator p-mr-2" style={{ "fontSize": "2em" }} />
             </Button>
 
             <Button id="ajuda">
-            <i id="ajuda" className="pi pi pi-question-circle" style={{"fontSize":"2em"}}/>
+                <i id="ajuda" className="pi pi pi-question-circle" style={{ "fontSize": "2em" }} />
             </Button>
-            
+
             <Button id="sign-out">
-            <i className="pi pi-sign-out" style={{"fontSize":"2em"}}/>
+                <i className="pi pi-sign-out" style={{ "fontSize": "2em" }} />
             </Button>
-            
-            
         </div>
     );
-    
+
     rightContents = () => {
+        let renderEmail = '';
+        if (this.state.usuario !== undefined) {
+            renderEmail = (<span id="usuario">{this.state.usuario.email}</span>);
+        } else {
+            renderEmail = (<span id="usuario" className="is-loading"></span>);
+        }
+
         return (
-            <div id = "icone_email">
-                <span id="usuario">
-                    
-                    {this.state.email}
-                    
-                </span>
+            <div id="logo-bar">              
+                {renderEmail}          
 
                 <img id="ifpb" src={Ifpb}></img>
                 <img id="avin" src={Avin}></img>
@@ -88,15 +75,12 @@ export default class Header extends React.Component{
         );
     };
 
-    componentDidMount() {
-        this.loadParticipante();
-      }
 
-    render(){
+    render() {
         return (
-          <div id = "header" /*onLoad ={this.loadParticipante()} */ >
-              <Toolbar id = "Toolbar" left={this.leftContents} right={this.rightContents()} style={StylesHeader}></Toolbar>
-          </div>
+            <div id="header" /*onLoad ={this.loadParticipante()} */ >
+                <Toolbar id="Toolbar" left={this.leftContents} right={this.rightContents()} style={StylesHeader}></Toolbar>
+            </div>
         );
     }
 }

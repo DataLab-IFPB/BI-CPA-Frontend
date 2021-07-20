@@ -1,6 +1,5 @@
 /*este arquivo css serve para definir todas a estilização padrão do projeto */
 :root {
-  font-size: 60%;
   --color-background: #f0f0f7;
   --color-cinza-claro: #DCDCDC;
   --color-cinza-medio: #A9A9A9;
@@ -16,23 +15,21 @@
   box-sizing: border-box;
 }
 
-html,
-body,
-#root {
-  height: 100vh; /*Para que a aplicação ocupe toda a altura da tela*/
-}
-
 body {
   background: white;
-}
-
-body div {
-  width: 100%;
+  height: 100vh; /*Para que a aplicação ocupe toda a altura da tela*/
+  width: 100vw;
 }
 
 #root {
   display: flex;
   justify-content: center;
+  padding: 1.5%;
+}
+
+#root > div {
+  flex: 1 1 auto;
+  width: 700px;
 }
 
 body,
@@ -43,6 +40,11 @@ textarea {
   /*font: 500 1.6rem Poppins;*/
   font-family: Arial, Helvetica, sans-serif;
   color: var(--color-text-base);
+}
+
+
+html {
+  font-size: 18px!important;
 }
 
 @media (min-width: 700px) {

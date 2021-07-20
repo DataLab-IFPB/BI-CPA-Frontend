@@ -3,16 +3,17 @@
     border-radius: 5px;
     
 }
+
 div#header{
     position: fixed;
     left: 0px;
     top: 0px;
-    right: 100%;
+    right: 0px;
     z-index:1000;
 }   
 
 body {
-    padding-top: 100px;
+    padding-top: 80px;
 }
 
 
@@ -53,15 +54,32 @@ body {
     margin-right: 10px;
     height: 25px;
 }
-#usuario{
-    font-size: 17px;
+#usuario {
+    font-size: 1rem;
     color:rgb(50, 160, 65);
     font-weight: bold;
     margin-right: 15px;
+    min-width: 50%;
+    min-height: 1rem;
+    text-align: end;
 }
 
-#icone_email{
+#logo-bar {
     display:flex;
     align-items: center;
     justify-content: flex-end;
+}
+
+.is-loading {  
+   background: #eee;
+   background: linear-gradient(90deg, #cccccc 8%, #aaaaaa 18%, #cccccc 33%);
+   border-radius: 5px;
+   background-size: 200% 100%;
+   animation: 1s shine linear infinite;  
+}
+
+@keyframes shine {
+  to {
+    background-position-x: -200%;
+  }
 }
