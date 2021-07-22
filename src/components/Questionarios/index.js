@@ -82,7 +82,7 @@ export default class Questionarios extends React.Component {
     renderSemQuestionarios = (
         <p style={{ 'textAlign': "center" }}>
             <i className="pi pi-exclamation-triangle" style={{ 'fontSize': '2em' }}></i>
-            <p><span>Não há questionários para você nesta situação</span></p>
+            <br />Não há questionários para você nesta situação
         </p>
     )
 

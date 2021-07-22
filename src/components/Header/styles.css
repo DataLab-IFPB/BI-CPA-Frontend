@@ -1,3 +1,6 @@
+/* necessário para obter variáveis do tema, como cores entre outras... */
+@import 'primereact/resources/primereact.min.css';
+
 #Toolbar{
     background: var(--color-cinza-claro);
     border-radius: 5px;
@@ -13,7 +16,7 @@ div#header{
 }   
 
 body {
-    padding-top: 80px;
+    padding-top: 90px;
 }
 
 
@@ -22,30 +25,22 @@ body {
     padding-left: 0px;
     font-size: 15px;
     background: none;
-    color: black;
+    color: var(--text-color);
     border-style: none;
 }
-#sign-out{
-    padding-right: 0px;
-    padding-left: 0px;
-    margin-left: 6px;
-    margin-right: 6px;
-    font-size: 15px;
-    background: none;
-    color: black;
-    border-style: none;
+
+div#header-leftContents .p-button {
+    background-color: transparent;
+    border: 0px;
+    padding: 2px;
 }
-#ajuda{
-    padding-right: 0px;
-    padding-left: 0px;
-    font-size: 10px;
-    margin-left: 6px;
-    font-size: 15px;
-    margin-right: 6px;
-    background: none;
-    color: black;
-    border-style: none;
+
+div#header-leftContents .p-button i {
+    font-size: 2rem;
+    margin: 0px;
+    color: var(--text-color);
 }
+
 #ifpb{
     height: 50px;
     margin-right: 10px;

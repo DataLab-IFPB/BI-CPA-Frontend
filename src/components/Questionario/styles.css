@@ -1,7 +1,8 @@
 /* necessário para obter variáveis do tema, como cores entre outras... */
-@import 'primereact/resources/themes/saga-green/theme.css';
+@import 'primereact/resources/primereact.min.css';
 
 .questionario {
+
 }
 
 .questionario .p-card.p-component {
@@ -21,10 +22,10 @@
 }
 
 .questionario .p-card-subtitle {
-    color: var(--primary-color);
+    color: var(--primary-color)!important;
     text-transform: uppercase;
     /* font-size: 1.5rem; */
-    font-weight: bold;
+    font-weight: bold!important;
 }
 
 .questionario .p-card-content {
@@ -38,14 +39,16 @@
 .questionario .questionario-actions {
     display: flex;
     justify-content: space-between;
-    margin-top: 1rem;
+    margin-top: 1rem;    
+    /* padding-left: 1rem; */
+    /* padding-right: 1rem; */
 }
 
 
 .questionario .questionario-actions .p-button  {
     margin-left: 5px;
-    animation: zoom-in-zoom-out 3s linear; 
-    animation-iteration-count: 3;
+    animation: zoom-in-zoom-out 2s linear; 
+    animation-iteration-count: 2;
 }
 @keyframes blink{
     0%{opacity: 0;}
@@ -58,7 +61,7 @@
         transform: scale(1, 1);
     }
     50% {
-        transform: scale(1.15, 1.15);
+        transform: scale(0.85, 0.85);
     }
     100% {
         transform: scale(1, 1);
@@ -110,6 +113,16 @@
 
 .questionario .p-steps + *{
     padding-top: 8rem;
+}
+
+.questionario .resposta-invalida {
+    background: var(--pink-100)!important;
+    color: var(--pink-600)!important;
+}
+
+.questionario .resposta-valida {
+    background: var(--green-100)!important;
+    color: var(--green-600)!important;
 }
 
 .questionario .indicadores {

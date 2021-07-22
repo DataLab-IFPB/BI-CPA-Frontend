@@ -26,12 +26,18 @@ export default class Questionario extends React.Component {
         etapaGrupoQuestaoSelecionado: 0, //steps
         questionario: undefined,
         startResponder: true,
-        etapa: 'I' //{'I', INÍCIO}, {'Q', QUESTIONARIO}, {'F', FINAL}
+        etapa: 'I', //{'I', INÍCIO}, {'Q', QUESTIONARIO}, {'F', FINAL}
+        respostas: {}
     }
 
     componentDidMount() {
-
     }
+
+    componentDidUpdate() {
+        // if (this.state.etapa === 'Q')
+        //     this.validarRespostas();
+    }
+
 
     static getDerivedStateFromProps(props, state) {
         if (props.questionario !== state.questionario) {
@@ -60,13 +66,13 @@ export default class Questionario extends React.Component {
     renderIndicadores(questao, escalaAvaliativa) {
 
         if (questao.indicadores !== undefined) {
-            // console.log(questao);
+            // console.log(questao.id);
             return (
-                <DataTable autoLayout={true} className="indicadores" value={questao.indicadores} stripedRows>
+                <DataTable id={questao.id} autoLayout={true} className="indicadores" value={questao.indicadores} stripedRows>
                     <Column field="indicador" header="Indicador"></Column>
-                    <Column field="id" header="Escala Avaliativa" body={(rowData) => {
+                    <Column id="id" field="id" header="Escala Avaliativa" body={(rowData, props) => {
                         return escalaAvaliativa.map((itemEscalaAvaliativa, indexItemEscalaAvaliativa) => {
-                            let indicadorId = questao.id + rowData.id;
+                            let indicadorId = rowData.id;
                             let indicadorOptionId = indicadorId + indexItemEscalaAvaliativa;
                             // console.log(indicadorId);
                             return (
@@ -78,7 +84,11 @@ export default class Questionario extends React.Component {
                                         name={indicadorId}
                                         checked={this.state[indicadorId] === indexItemEscalaAvaliativa}
                                         onChange={(e) => {
-                                            this.setState({ [indicadorId]: e.value })
+                                            this.setState({ [indicadorId]: e.value });
+
+                                            //necessário quando clicar remover classe caso necessário.
+                                            if (this.state.etapa === 'Q')
+                                                document.getElementById(questao.id).querySelector(`.p-datatable-wrapper table tbody`).children[props.rowIndex].classList.remove('resposta-invalida');
                                             // console.log(e.value); --> valor do índice na escala escolhido
                                         }} />
                                     <label htmlFor={indicadorOptionId}>{itemEscalaAvaliativa.valorQualitativo}</label>
@@ -111,6 +121,9 @@ export default class Questionario extends React.Component {
     }
 
     handleAvancarEtapaGrupoQuestao(etapaIndex) {
+        if (etapaIndex > 0 && !this.validarRespostas())
+            return;
+
         let qtdGruposQuestoes = this.state.questionario.gruposQuestoes.length;
         let etapaGrupoQuestaoAtual = this.state.etapaGrupoQuestaoSelecionado;
         let proximaEtapaGrupoQuestao = etapaGrupoQuestaoAtual + etapaIndex;
@@ -127,9 +140,37 @@ export default class Questionario extends React.Component {
     }
 
     handleEnviarRespostas(history, questionario) {
+        // questionario.grupoQuestoes.
 
 
+    }
 
+    validarRespostas() {
+        let questionario = this.state.questionario;
+        let grupoAtual = questionario.gruposQuestoes[this.state.etapaGrupoQuestaoSelecionado];
+        let countInvalidades = 0;
+        let getIndicadorElement = (questaoId, indicadorIndex) => {
+            // return document.getElementById(questaoId).querySelector('.p-datatable-wrapper table tbody').children[indicadorIndex];
+            return document.querySelector(`div[id="${questaoId}"] .p-datatable-wrapper table tbody tr:nth-child(${indicadorIndex + 1})`);
+        }
+        grupoAtual.questoes.forEach(questao => {
+            if (questao.indicadores !== undefined) {
+                questao.indicadores.forEach((indicador, index) => {
+                    let element = getIndicadorElement(questao.id, index);
+                    if (this.state[indicador.id] === undefined) {
+                        element.classList.remove('resposta-valida');
+                        element.classList.add('resposta-invalida');
+                        countInvalidades++;
+                        return;
+                    }
+                    element.classList.remove('resposta-invalida');
+                    element.classList.add('resposta-valida');
+                });
+            }
+        });
+
+        return countInvalidades === 0;
+        //varre todas as questões do tipo DIMENSIONALIZADA_FECHADA (indicador !== undefined) e para cada um analisa se há resposta.
     }
 
     renderActions() {
@@ -174,12 +215,10 @@ export default class Questionario extends React.Component {
         if (this.props.questionario && this.state.questionario !== undefined) {
             let content = (<div dangerouslySetInnerHTML={{ __html: campoQuestionarioTexto }} />);
             return (
-                <div>
-                    <Panel className="prepos-etapa" header={tituloEtapa}>
-                        {content}
-                    </Panel>
+                <Panel className="prepos-etapa" header={tituloEtapa}>
+                    {content}
                     {this.renderActions()}
-                </div>
+                </Panel>
             )
         }
     }
@@ -202,7 +241,8 @@ export default class Questionario extends React.Component {
         }
     }
 
-    showDialog() {
+
+    showDialogConcordanciaParticipar() {
         const dialogName = 'startResponder';
         const footer = (
             <div>
@@ -227,7 +267,7 @@ export default class Questionario extends React.Component {
                 2. Ao prosseguir com este questionário você concorda em participar do processo avaliativo.<br />
                 3. O questionário não poderá mais ser mais modificado depois de enviado.<br />
                 4. Passe por cada etapa do questionário usando os botões no início e no final da tela para
-                <span style={{ 'color': 'var(--green-500)' }}>  AVANÇAR (verde)</span> 
+                <span style={{ 'color': 'var(--green-500)' }}>  AVANÇAR (verde)</span>
                 ou <span style={{ 'color': 'var(--pink-500)' }}>RETROCEDER (vermelho)</span> etapas do questionário.
             </Dialog>
         );
@@ -247,7 +287,7 @@ export default class Questionario extends React.Component {
     render() {
         let renderDialog, renderQuestionario, renderPreposEtapa;
         if (this.state.startResponder) {
-            renderDialog = this.showDialog();
+            renderDialog = this.showDialogConcordanciaParticipar();
         } else {
             if (this.state.etapa === 'I') {
                 // console.log(this.state.etapa)
@@ -260,9 +300,11 @@ export default class Questionario extends React.Component {
                 renderQuestionario = (
                     <div>
                         <Steps model={this.etapas()} activeIndex={this.state.etapaGrupoQuestaoSelecionado} onSelect={(e) => this.setState({ etapaGrupoQuestaoSelecionado: e.index })} /*readOnly={false}*/ />
-                        <div>{this.renderActions()}</div>
-                        <div>{this.renderQuestoes(this.state.etapaGrupoQuestaoSelecionado)}</div>
-                        <div>{this.renderActions()}</div>
+                        <Panel>
+                            {this.renderActions()}
+                            {this.renderQuestoes(this.state.etapaGrupoQuestaoSelecionado)}
+                            {this.renderActions()}
+                        </Panel>
                     </div>
                 )
             }

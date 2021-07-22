@@ -1,4 +1,5 @@
 import React, { useState, Component } from "react";
+import { Route } from 'react-router-dom'
 
 import Ifpb from "../../assets/styles/imgs/ifpb.svg";
 import Avin from "../../assets/styles/imgs/avin.svg";
@@ -42,18 +43,22 @@ export default class Header extends React.Component {
     }
 
     leftContents = (
-        <div>
-            <Button id="separador">
-                <i className="pi pi-bars p-toolbar-separator p-mr-2" style={{ "fontSize": "2em" }} />
+        <div id="header-leftContents">
+            {/* <Button>
+                <i className="pi pi-bars p-toolbar-separator p-mr-2" />
+            </Button> */}
+
+            <Button>
+                <i className="pi pi pi-question-circle" />
             </Button>
 
-            <Button id="ajuda">
-                <i id="ajuda" className="pi pi pi-question-circle" style={{ "fontSize": "2em" }} />
-            </Button>
-
-            <Button id="sign-out">
-                <i className="pi pi-sign-out" style={{ "fontSize": "2em" }} />
-            </Button>
+            {/* <Route render={(props) => (
+                    <Button onClick={() => {
+                            
+                        }}>
+                        <i className="pi pi-sign-out" />                    
+                    </Button>
+             )} /> */}
         </div>
     );
 
