@@ -98,8 +98,9 @@ export default class GAS {
                     delete this.responses[responseIndex];
                     //console.debug(this.responses);
                     if (this.hasCPAError(response)) {
+                        response = new Error(response.mensagem);
                         console.error(response);
-                        throw response;
+                        // throw response;
                     }
                     resolve(response);
 
@@ -131,9 +132,9 @@ export default class GAS {
         //targetObject[functionCallbackName](functionCallbackParams);
         // console.log(functionCallbackName);
         // console.log(functionCallbackParams);
-        //console.log(this.responses);
+        // console.log(e);
 
-        if (this.responses[functionCallbackName] !== undefined) {           
+        if (this.responses[functionCallbackName] !== undefined) {
             this.responses[functionCallbackName].response = functionCallbackParams;
             this.responses[functionCallbackName].done = true;     
         }

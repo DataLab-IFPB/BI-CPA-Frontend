@@ -10,7 +10,6 @@ function Routes(){
     return (
         <BrowserRouter>
             <Route exact path="/" component={TelaQuestionarios} />
-           
             <Route path="/questionario/:id" component={TelaQuestionario} />
             {/* <Route path="/questionario_finalizado" component={QuestionarioFinalizado} />
             <Route path="/questionario_grupo_questao" component={QuestionarioGrupoQuestao} /> */}

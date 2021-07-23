@@ -13,7 +13,9 @@ import {Icons} from "primeicons/primeicons.css";
 
 import "./assets/styles/global.css";
 
-
+/**
+ * @summary Componente que representa  o aplicativo principal de mais alto nível.
+ */
 export default class App extends React.Component {
 
   constructor(props) {
@@ -23,6 +25,7 @@ export default class App extends React.Component {
   render = () => {
     return (
       <div>
+        {/* necessário para inicializar o componente provedor de contexto {AppProvider} nos subcomponentes de {App} */}
         <AppProvider>
           <Routes />
           <Loading />
