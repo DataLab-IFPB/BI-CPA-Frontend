@@ -14,7 +14,7 @@ export default class GAS {
  
     static _instance = null;
     modulo = null;
-    GAS_DOMAIN_IFRAME = "https://n-ca4cgm362sqjoxuzuprc7rrzekcxvqqzhi4jwwy-1lu-script.googleusercontent.com";
+    GAS_DOMAIN_IFRAME = "*";//"https://n-ca4cgm362sqjoxuzuprc7rrzekcxvqqzhi4jwwy-0lu-script.googleusercontent.com"
     GAS_DOMAN_DEV = "https://script.google.com/a/macros/ifpb.edu.br/s/AKfycbwvZi6D-udCXUXzwICweA9uZ3PGWCdPRMz2vWG-79I/dev";
   
     constructor() {
@@ -121,8 +121,9 @@ export default class GAS {
      * @param targetObject parâmetros da função chamada no iframe filho
      */
     callback(e, targetObject) {
-        if (e.origin !== this.GAS_DOMAIN_IFRAME)
-        return;
+        console.debug(`[GAS] Inicializando GAS.callback() para response nº{${functionCallbackName}}`);
+        // if (e.origin !== this.GAS_DOMAIN_IFRAME)
+        // return;
         
         var functionCallbackName = e.data.functionCallbackName;
         var functionCallbackParams = e.data.functionCallbackParams; //caso não funcione trocar por JSON.parse(functionRunParams)
