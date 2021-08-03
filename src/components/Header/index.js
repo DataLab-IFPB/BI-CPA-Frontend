@@ -1,5 +1,7 @@
 import React, { useState, Component } from "react";
 import { Route } from 'react-router-dom'
+import Modal from "react-modal";
+import { Dialog } from 'primereact/dialog';
 
 import Ifpb from "../../assets/styles/imgs/ifpb.svg";
 import Avin from "../../assets/styles/imgs/avin.svg";
@@ -12,10 +14,51 @@ import { Toolbar } from "primereact/toolbar";
 export default class Header extends React.Component {
     constructor(props) {
         super(props);
+        this.state.modalIsOpen = false;
+    }
+
+    state = {
+        usuario: undefined,
+        modalIsOpen: false,
+        displayBasic: false
+    }
+    openModal = () => {
+        this.state.modalIsOpen = true;
+        console.log(this.state.modalIsOpen);
+       
+    }
+    closeModal = () => {
+        this.state.modalIsOpen = false;
+    }
+
+    onClick(name, position) {
+        let state = {
+            [`${name}`]: true
+        };
+
+        if (position) {
+            state = {
+                ...state,
+                position
+            }
+        }
+
+        this.setState(state);
     }
     
-    state = {
-        usuario: undefined
+    onHide(name) {
+        this.setState({
+            [`${name}`]: false
+        });
+    }
+
+    renderFooter(name) {
+        return (
+            <div>
+                <Button label="No" icon="pi pi-times" onClick={() => this.onHide(name)} className="p-button-text" />
+                <Button label="Yes" icon="pi pi-check" onClick={() => this.onHide(name)} autoFocus />
+            </div>
+        );
     }
 
     // componentWillReceiveProps(props) {
@@ -39,7 +82,7 @@ export default class Header extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({usuario: this.props.usuario});
+        this.setState({ usuario: this.props.usuario });
     }
 
     leftContents = (
@@ -48,9 +91,26 @@ export default class Header extends React.Component {
                 <i className="pi pi-bars p-toolbar-separator p-mr-2" />
             </Button> */}
 
-            <Button>
+            <Button onClick={this.openModal} >
                 <i className="pi pi pi-question-circle" />
             </Button>
+            
+            <Button label="Show" icon="pi pi-external-link" onClick={() => this.onClick('displayBasic')} />
+            
+            <Dialog header="Header" visible={this.state.displayBasic} style={{ width: '50vw' }} footer={this.renderFooter('displayBasic')} onHide={() => this.onHide('displayBasic')}>
+                <h1>Teste</h1>
+            </Dialog>
+            <Modal
+                isOpen={this.state.modalIsOpen}
+                overlayClassName="react-modal-overlay"
+                className="react-modal-content"
+                ariaHideApp={false}
+            >
+                <h1> Olá Mundo Bom</h1>
+            </Modal>
+
+
+
 
             {/* <Route render={(props) => (
                     <Button onClick={() => {
@@ -61,6 +121,16 @@ export default class Header extends React.Component {
              )} /> */}
         </div>
     );
+    modal = () => {
+        console.log("wfu9uwfbujw")
+        return (
+            <Modal
+                overlayClassName="react-modal-overlay"
+                className="react-modal-content"
+            >
+            </Modal>
+        )
+    }
 
     rightContents = () => {
         let renderEmail = '';
@@ -71,8 +141,8 @@ export default class Header extends React.Component {
         }
 
         return (
-            <div id="logo-bar">              
-                {renderEmail}          
+            <div id="logo-bar">
+                {renderEmail}
 
                 <img id="ifpb" src={Ifpb}></img>
                 <img id="avin" src={Avin}></img>
@@ -86,6 +156,7 @@ export default class Header extends React.Component {
             <div id="header" /*onLoad ={this.loadParticipante()} */ >
                 <Toolbar id="Toolbar" left={this.leftContents} right={this.rightContents()} style={StylesHeader}></Toolbar>
             </div>
+
         );
     }
 }

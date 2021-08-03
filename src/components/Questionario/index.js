@@ -190,22 +190,31 @@ export default class Questionario extends React.Component {
         let gasObj = GAS.getInstance();
         let questionario = this.state.questionario;
 
-        /*
-        1. Verificar se questionário possui respostas para todos os indicadores em this.state[indicadorId]
-        2.1 Setar cada questao dimensionalizada fechada (c/ indicador) para adicionar-lhes a propriedade 'resposta', sendo o valor da mesma o index do item de escala avalitiva, que já é o entregue por this.state[indicadorId]
-        2.2 Setar cada questao aberta para adicionar-lhes a propriedade resposta
-        3. realizar GAS.request() passando o questionário
-        4. Se bem sucedido, adicionar a propriedade respondido = true ao questionário e retornar a tela de listagem de quesitionários
-        5. Se mal sucedido, mostrar que não foi possível enviar as respostas, devendo entrar em contato avaliacao@ifpb.edu.br.
-        */
+        
+        // 1. Verificar se questionário possui respostas para todos os indicadores em this.state[indicadorId]
 
-       /*gasObj.request('MCPAQuestionario.instance.SERVICE.POSTRespostasQuestionario', questionario)
+        //Varredura em Questionario 
+        for(let i = 0; i < this.state.questionario.indicadores.length; i++){
+            console.log(this.state.questionario.indicadores[i])
+
+        }
+
+
+        // 2.1 Setar cada questao dimensionalizada fechada (c/ indicador) para adicionar-lhes a propriedade 'resposta', sendo o valor da mesma o index do item de escala avalitiva, que já é o entregue por this.state[indicadorId]
+        // 2.2 Setar cada questao aberta para adicionar-lhes a propriedade resposta
+        // 3. realizar GAS.request() passando o questionário
+        // 4. Se bem sucedido, adicionar a propriedade respondido = true ao questionário e retornar a tela de listagem de quesitionários
+        // 5. Se mal sucedido, mostrar que não foi possível enviar as respostas, devendo entrar em contato avaliacao@ifpb.edu.br.
+        
+
+        gasObj.request('MCPAQuestionario.instance.SERVICE.POSTRespostasQuestionario', questionario)
             .then((RESPONSE) => {
                 questionario.respostas = true;
                 props.history.push({ pathname: `/` });
             }).catch((e) => {
 
-            });*/
+        });
+
 
     }
 
