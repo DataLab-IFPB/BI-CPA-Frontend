@@ -14,18 +14,19 @@ import { Toolbar } from "primereact/toolbar";
 export default class Header extends React.Component {
     constructor(props) {
         super(props);
-        this.state.modalIsOpen = false;
+        //this.state.modalIsOpen = false;
+
+        const [displayBasic] = React.useState(false);
     }
 
-    state = {
+    /*state = {
         usuario: undefined,
         modalIsOpen: false,
         displayBasic: false
-    }
+    }*/
     openModal = () => {
         this.state.modalIsOpen = true;
         console.log(this.state.modalIsOpen);
-       
     }
     closeModal = () => {
         this.state.modalIsOpen = false;
@@ -36,20 +37,23 @@ export default class Header extends React.Component {
             [`${name}`]: true
         };
 
-        if (position) {
+       /* if (position) {
             state = {
                 ...state,
                 position
             }
-        }
+        }*/
 
         this.setState(state);
+        console.log(this.state.displayBasic);
     }
     
     onHide(name) {
         this.setState({
             [`${name}`]: false
         });
+
+        console.log(this.state.displayBasic);
     }
 
     renderFooter(name) {
@@ -95,22 +99,19 @@ export default class Header extends React.Component {
                 <i className="pi pi pi-question-circle" />
             </Button>
             
-            <Button label="Show" icon="pi pi-external-link" onClick={() => this.onClick('displayBasic')} />
-            
-            <Dialog header="Header" visible={this.state.displayBasic} style={{ width: '50vw' }} footer={this.renderFooter('displayBasic')} onHide={() => this.onHide('displayBasic')}>
-                <h1>Teste</h1>
-            </Dialog>
-            <Modal
-                isOpen={this.state.modalIsOpen}
-                overlayClassName="react-modal-overlay"
-                className="react-modal-content"
-                ariaHideApp={false}
-            >
-                <h1> Olá Mundo Bom</h1>
-            </Modal>
-
-
-
+            <div className="dialog-demo">
+                <Button label="Show" onClick={() => this.onClick('displayBasic')} />
+                
+                <Dialog 
+                    header="Header" 
+                    visible={this.state.displayBasic == true}
+                    footer={this.renderFooter('displayBasic')} 
+                    onHide={() => this.onHide('displayBasic')}
+                >
+                    <h1>Teste</h1>
+                    <p>vsdnvosdnv oadnvdvdsvsdvsndvsjdn</p>
+                </Dialog>
+            </div>
 
             {/* <Route render={(props) => (
                     <Button onClick={() => {
