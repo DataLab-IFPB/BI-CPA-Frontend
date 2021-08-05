@@ -193,14 +193,35 @@ export default class Questionario extends React.Component {
         
         // 1. Verificar se questionário possui respostas para todos os indicadores em this.state[indicadorId]
 
+         console.log("AAAAAAAA")
         //Varredura em Questionario 
-        for(let i = 0; i < this.state.questionario.indicadores.length; i++){
-            console.log(this.state.questionario.indicadores[i])
+        for(let i = 0; i < this.state.questionario.gruposQuestoes.length; i++){
+            //console.log(this.state.questionario.gruposQuestoes[i])
+
+            for(let j = 0; j < this.state.questionario.gruposQuestoes[i].questoes.length; j++) {
+                // console.log(this.state.questionario.gruposQuestoes[i].questoes[j])
+
+                if(this.state.questionario.gruposQuestoes[i].questoes[j].tipo == "DIMENSIONALIZADA_FECHADA") {
+                    console.log(this.state.questionario.gruposQuestoes[i].questoes[j].indicadores)
+                }
+                    
+                    
+                 
+
+            }
 
         }
 
+       
 
-        // 2.1 Setar cada questao dimensionalizada fechada (c/ indicador) para adicionar-lhes a propriedade 'resposta', sendo o valor da mesma o index do item de escala avalitiva, que já é o entregue por this.state[indicadorId]
+        // console.log(this.state.questionario)
+
+        // !!!!!NÃO APAGAR !!! Acessar Indicadores 
+        // console.log(this.state.questionario.gruposQuestoes[0].questoes[0].indicadores)
+
+
+        // 2.1 Setar cada questao dimensionalizada fechada (c/ indicador) para adicionar-lhes a propriedade 'resposta',
+        // sendo o valor da mesma o index do item de escala avalitiva, que já é o entregue por this.state[indicadorId]
         // 2.2 Setar cada questao aberta para adicionar-lhes a propriedade resposta
         // 3. realizar GAS.request() passando o questionário
         // 4. Se bem sucedido, adicionar a propriedade respondido = true ao questionário e retornar a tela de listagem de quesitionários

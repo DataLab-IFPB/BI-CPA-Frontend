@@ -16,14 +16,14 @@ export default class Header extends React.Component {
         super(props);
         //this.state.modalIsOpen = false;
 
-        const [displayBasic] = React.useState(false);
+        // const [displayBasic] = React.useState(false);
     }
 
-    /*state = {
+    state = {
         usuario: undefined,
         modalIsOpen: false,
         displayBasic: false
-    }*/
+    }
     openModal = () => {
         this.state.modalIsOpen = true;
         console.log(this.state.modalIsOpen);
@@ -45,7 +45,7 @@ export default class Header extends React.Component {
         }*/
 
         this.setState(state);
-        console.log(this.state.displayBasic);
+        // console.log(this.state.displayBasic);
     }
     
     onHide(name) {
@@ -53,7 +53,7 @@ export default class Header extends React.Component {
             [`${name}`]: false
         });
 
-        console.log(this.state.displayBasic);
+        // console.log(this.state.displayBasic);
     }
 
     renderFooter(name) {
@@ -86,7 +86,7 @@ export default class Header extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({ usuario: this.props.usuario });
+        // this.setState({ usuario: this.props.usuario });
     }
 
     leftContents = (
@@ -101,7 +101,7 @@ export default class Header extends React.Component {
             
             <div className="dialog-demo">
                 <Button label="Show" onClick={() => this.onClick('displayBasic')} />
-                
+{/*                 
                 <Dialog 
                     header="Header" 
                     visible={this.state.displayBasic == true}
@@ -109,8 +109,8 @@ export default class Header extends React.Component {
                     onHide={() => this.onHide('displayBasic')}
                 >
                     <h1>Teste</h1>
-                    <p>vsdnvosdnv oadnvdvdsvsdvsndvsjdn</p>
-                </Dialog>
+                    <p>vsdnvosdnv oadnvdvdsvsdvsndvsjdn</p> */}
+                {/* </Dialog> */}
             </div>
 
             {/* <Route render={(props) => (
