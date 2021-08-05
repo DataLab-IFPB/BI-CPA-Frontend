@@ -14,6 +14,7 @@ import { Toolbar } from "primereact/toolbar";
 export default class Header extends React.Component {
     constructor(props) {
         super(props);
+        this.onClick = this.onClick.bind(this)
         //this.state.modalIsOpen = false;
 
         // const [displayBasic] = React.useState(false);
@@ -44,7 +45,7 @@ export default class Header extends React.Component {
             }
         }*/
 
-        this.setState(state);
+        this.setState();
         // console.log(this.state.displayBasic);
     }
     
@@ -95,22 +96,25 @@ export default class Header extends React.Component {
                 <i className="pi pi-bars p-toolbar-separator p-mr-2" />
             </Button> */}
 
-            <Button onClick={this.openModal} >
+            <Button onClick={()=>{
+                this.setState({displayBasic:true})
+            }} >
                 <i className="pi pi pi-question-circle" />
             </Button>
             
             <div className="dialog-demo">
                 <Button label="Show" onClick={() => this.onClick('displayBasic')} />
-{/*                 
+                
                 <Dialog 
                     header="Header" 
-                    visible={this.state.displayBasic == true}
+                    visible={this.state.displayBasic}
                     footer={this.renderFooter('displayBasic')} 
                     onHide={() => this.onHide('displayBasic')}
+                    modal
                 >
                     <h1>Teste</h1>
-                    <p>vsdnvosdnv oadnvdvdsvsdvsndvsjdn</p> */}
-                {/* </Dialog> */}
+                    <p>vsdnvosdnv oadnvdvdsvsdvsndvsjdn</p> 
+                 </Dialog>
             </div>
 
             {/* <Route render={(props) => (

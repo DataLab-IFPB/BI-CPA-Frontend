@@ -193,9 +193,11 @@ export default class Questionario extends React.Component {
         
         // 1. Verificar se questionário possui respostas para todos os indicadores em this.state[indicadorId]
 
+        //Usar um For Each (De Preferência)
+
          console.log("AAAAAAAA")
         //Varredura em Questionario 
-        for(let i = 0; i < this.state.questionario.gruposQuestoes.length; i++){
+        for(let i = 0; i < this.state.questionario.gruposQuestoes.length; i++) {
             //console.log(this.state.questionario.gruposQuestoes[i])
 
             for(let j = 0; j < this.state.questionario.gruposQuestoes[i].questoes.length; j++) {
@@ -203,6 +205,9 @@ export default class Questionario extends React.Component {
 
                 if(this.state.questionario.gruposQuestoes[i].questoes[j].tipo == "DIMENSIONALIZADA_FECHADA") {
                     console.log(this.state.questionario.gruposQuestoes[i].questoes[j].indicadores)
+                }
+                else{
+
                 }
                     
                     
