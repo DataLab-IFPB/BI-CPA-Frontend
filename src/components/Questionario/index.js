@@ -238,7 +238,7 @@ export default class Questionario extends React.Component {
             });
         });
         questionario.respondidoEm = new Date().toISOString();
-        console.log(questionario.respondidoEm)
+        //console.log(questionario.respondidoEm)
 
 
 
@@ -255,13 +255,14 @@ export default class Questionario extends React.Component {
         // 4. Se bem sucedido, adicionar a propriedade respondido = true ao questionário e retornar a tela de listagem de quesitionários
         // 5. Se mal sucedido, mostrar que não foi possível enviar as respostas, devendo entrar em contato avaliacao@ifpb.edu.br.
 
-
+        
         gasObj.request('MCPAQuestionario.instance.SERVICE.POSTRespostasQuestionario', questionario)
             .then((RESPONSE) => {
                 questionario.respostas = true;
                 props.history.push({ pathname: `/` });
-            }).catch((e) => {
                 
+            }).catch((e) => {
+
             });
 
 

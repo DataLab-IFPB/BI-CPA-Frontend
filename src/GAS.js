@@ -89,26 +89,26 @@ export default class GAS {
     }
   
     response(responseIndex) {
-        this.responses[responseIndex+''] = {};
-        return new Promise((resolve) => {            
+        this.responses[responseIndex + ''] = {};
+        return new Promise((resolve, reject) => {
             let responseIntervalId = setInterval(() => {
                 if (this.responses[responseIndex].done) {
                     clearInterval(this.responses[responseIndex].intervalId);
                     let response = this.responses[responseIndex].response;
                     delete this.responses[responseIndex];
-                    //console.debug(this.responses);
-                    if (this.hasCPAError(response)) {
-                        response = new Error(response.mensagem);
-                        console.error(response);
-                        // throw response;
-                    }else{
-                        resolve(response);
-                    }
-                    
 
                     //não possui mais responses em execução ocultar loading
-                    let remainResponses = Object.entries(this.responses).filter(entry => !this.responses[entry[0]].done);                 
-                    Loading.loading(remainResponses === undefined);        
+                    Loading.loading(this.responses.length === 0);
+
+                    if (this.hasCPAError(response)) {
+                        // response = new Error(response.mensagem);
+                        // console.error(response);
+                        reject(new Error(response.message));
+                    }
+                    resolve(response);
+
+                } else {
+                    Loading.loading(this.responses.length !== 0);
                 }
                 //console.debug("processando response index " + responseIndex);
             }, 500);
