@@ -105,7 +105,7 @@ export default class Questionarios extends React.Component {
      */
     renderDisponiveis = () => {
         if (this.props.disponiveis  !== undefined && this.state.questionarios !== undefined) {
-            let questionariosDisponiveis = this.state.questionarios.filter(questionario => this.isQuestionarioDisponivel(questionario));
+            let questionariosDisponiveis = this.state.questionarios.filter(questionario => this.respostas(questionario));
 
             let renderSemQuestionarios = '';
             if (questionariosDisponiveis.length === 0)
@@ -138,7 +138,7 @@ export default class Questionarios extends React.Component {
      */
     renderRespondidos = () => {
         if (this.props.respondidos  !== undefined && this.state.questionarios !== undefined) {
-            let questionariosRespondidos = this.state.questionarios.filter(questionario => !this.isQuestionarioDisponivel(questionario));
+            let questionariosRespondidos = this.state.questionarios.filter(questionario => !this.respostas(questionario));
             let renderSemQuestionarios = '';
             if (questionariosRespondidos.length === 0)
             renderSemQuestionarios = this.renderSemQuestionarios;
@@ -150,7 +150,7 @@ export default class Questionarios extends React.Component {
                             return (
                                 <Card className="respondido"
                                 key={questionario.id}
-                                title={`RESPONDIDO EM ${new Date(questionario.terminoAplicacao).toLocaleString()}`}
+                                title={`RESPONDIDO EM ${new Date(questionario.respondidoEm).toLocaleString()}`}
                                 subTitle={questionario.titulo}>
                                     {questionario.periodoLetivo}
                                 </Card>
@@ -180,7 +180,7 @@ export default class Questionarios extends React.Component {
      * @param {*} questionario 
      * @returns (boolean) - true, se questionário é reconhecido como disponível para responder.
      */
-    isQuestionarioDisponivel(questionario) {
-        return !questionario.respostas;
+    respostas(questionario) {
+        return !questionario.respondidoEm;
     }
 }

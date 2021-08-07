@@ -48,9 +48,9 @@
 .questionarios .p-card.p-component.respondido {
     border-left: 7px solid var(--pink-500);
 }
-.questionarios .p-card-title.respondido,
-.questionarios .p-card-subtitle.respondido,
-.questionarios .p-card-content.respondido {
+.questionarios .p-card.p-component.respondido .p-card-title,
+/* .questionarios .p-card.p-component.respondido .p-card-subtitle, */
+.questionarios .p-card.p-component.respondido .p-card-content{
     color: var(--pink-500);
 }
 

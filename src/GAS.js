@@ -101,8 +101,10 @@ export default class GAS {
                         response = new Error(response.mensagem);
                         console.error(response);
                         // throw response;
+                    }else{
+                        resolve(response);
                     }
-                    resolve(response);
+                    
 
                     //não possui mais responses em execução ocultar loading
                     let remainResponses = Object.entries(this.responses).filter(entry => !this.responses[entry[0]].done);                 
