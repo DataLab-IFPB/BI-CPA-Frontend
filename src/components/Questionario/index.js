@@ -5,7 +5,7 @@ import { Route } from 'react-router-dom'
 import { Card } from 'primereact/card';
 import { Button } from "primereact/button";
 import { RadioButton } from 'primereact/radiobutton';
-
+import { Toast } from 'primereact/toast';
 import { Steps } from 'primereact/steps';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
@@ -36,7 +36,8 @@ export default class Questionario extends React.Component {
      */
     constructor(props) {
         super(props);
-
+        this.showSuccess = this.showSuccess.bind(this);
+        this.showError = this.showError.bind(this);
     }
 
     /**
@@ -52,6 +53,15 @@ export default class Questionario extends React.Component {
             };
         }
         return null;
+    }
+
+    
+    showSuccess() {
+        this.toastBC.show({severity:'success', summary: 'Sucesso no envio', detail:'Questionário enviado', life: 3000});
+    }
+
+    showError() {
+        this.toastBC.show({severity:'error', summary: 'Erro no envio', detail:'Questionário não pode ser enviado', life: 3000});
     }
 
     componentDidMount() {
@@ -260,9 +270,16 @@ export default class Questionario extends React.Component {
             .then((RESPONSE) => {
                 questionario.respostas = true;
                 props.history.push({ pathname: `/` });
-                
-            }).catch((e) => {
 
+                this.showSuccess()
+                return (
+                    <Toast ref={(el) => this.toastBC = el} position="bottom-center" />
+                );
+            }).catch((e) => {
+                this.showError()
+                return (
+                    <Toast ref={(el) => this.toastBC = el} position="bottom-center" />
+                );
             });
 
 
