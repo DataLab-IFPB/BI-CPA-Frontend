@@ -1,0 +1,200 @@
+/* necessário para obter variáveis do tema, como cores entre outras... */
+@import 'primereact/resources/primereact.min.css';
+
+.painel-apropriador {
+    --space-between: 10px;
+}
+
+#root, /* ajustando elementos conteineres para ocupar altura restante da tela */
+#root > div > div:nth-child(1), /* ajustando elementos conteineres para ocupar altura restante da tela */
+.painel-apropriador, /* classe do componente react PainelApropriador */
+.painel-apropriador .p-splitter.p-component /* classe do splitter principal */  {
+    height: 100%; /* ocupar apenas o restante da tela */
+}
+
+.painel-apropriador > div { /* primeira div de .painel-apropriador é o parent de fato */
+    display: flex;
+    flex-flow: column;
+    height: 100%; /* ocupar apenas o restante da tela */
+}
+
+.painel-apropriador > div > div:nth-child(1) { /* parte de cima do parent */
+    
+}
+
+.painel-apropriador > div > div:nth-child(2) { /* parte de baixo o parent */
+    flex: 1; /* expande até espaço de altura que sobre do elemento parent */
+    overflow: hidden; /* não expande mais que o restante da tela, delimitando o tamanho ao do parent */
+    margin-top: var(--space-between);
+}
+
+.painel-apropriador .p-splitter-panel { /* lados esquerdo e direito do splitter como parent viewports, mostrar barra de rolagem se ultrapassar altura */
+    overflow: auto;
+    flex-flow: column;
+    /* padding: var(--space-between); */
+    
+}
+
+.painel-apropriador .p-splitter.p-component > .p-splitter-panel:nth-child(1) {  /* lado esquerdo do splitter */
+    min-width: 12rem; 
+}
+
+.painel-apropriador .p-listbox.p-component .p-listbox-list {
+    padding: 0;
+}
+
+.painel-apropriador .p-listbox.p-component .p-listbox-item-group {
+    text-transform: uppercase;
+    /* text-align: center; */
+    background: var(--surface-d);
+    /* font-size: 0.85rem; */
+    /* border-top: 7px solid var(--surface-c); */
+    /* color: var(--primary-color-text); */
+}
+
+.painel-apropriador .p-listbox.p-component .p-listbox-item {
+    /* text-transform: uppercase; */
+    background: var(--surface-b);
+    /* text-align: center; */
+    font-size: 0.9rem;
+}
+
+.painel-apropriador .p-listbox.p-component .p-listbox-item.p-highlight {
+    background: var(--primary-color);
+    color: var(--primary-color-text);
+}
+
+.painel-apropriador .topicos-actions * {
+    /* display: flex; */
+    width: 100%;
+}
+
+.painel-apropriador .dimensao-descricao {
+    font-size: 0.9rem;
+    font-weight: normal;
+    /* padding: var(--space-between); */
+    /* margin-bottom: calc(2.75*var(--space-between)); */
+    /* background: var(--primary-color); */
+    /* color: var(--primary-color-text); */
+
+}
+
+.painel-apropriador .topicos {
+    flex: 1;
+    overflow: hidden;
+    height: 100%;
+    /* margin-top: var(--space-between); */
+    /* padding: var(--space-between); */
+}
+
+.painel-apropriador .p-datatable {
+    font-size: 0.8rem;
+    word-wrap: break-word;
+    display: flex;
+    flex-direction: column;
+}
+
+.painel-apropriador .p-datatable-wrapper {
+    flex: 1;
+    overflow: auto;
+}
+
+.painel-apropriador .p-datatable .badge-topico {
+    border-radius: 2px;
+    padding: 0.1rem 0.25rem;
+}
+
+.painel-apropriador .p-datatable .badge-topico.fragilidade {
+    background-color: var(--pink-100);
+    color: var(--pink-600);
+}
+
+.painel-apropriador .p-datatable .badge-topico.potencialidade {
+    background-color: var(--blue-100);
+    color: var(--blue-600);
+}
+
+.painel-apropriador .p-datatable .p-datatable-emptymessage {
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+
+.painel-apropriador .topicos > * {
+    height: 100%;
+}
+
+.painel-apropriador .p-card.p-component {
+    border-left: 7px solid var(--primary-color);
+}
+
+.painel-apropriador .p-card-title {
+    /* font-weight: normal; */
+    color:var(--primary-color);
+}
+
+.painel-apropriador .p-card.p-component.topico-fragilidade {
+    border-left: 7px solid #D32F2F;
+    margin: 1rem 0rem;
+    color: #D32F2F;
+}
+
+.painel-apropriador .p-card.p-component.topico-potencialidade {
+    border-left: 7px solid #0288D1;
+    margin: 1rem 0rem;
+    color: #0288D1;
+}
+
+.painel-apropriador .p-card.p-component.topico-potencialidade .p-card-title,
+.painel-apropriador .p-card.p-component.topico-fragilidade .p-card-title
+ {
+    color: inherit;
+    /* text-transform: uppercase; */
+    /* font-size: 1.35rem!important; */
+    /* font-weight: normal!important; */
+    /* animation: blink 1s ease infinite; */
+    
+}
+
+.painel-apropriador .p-card-subtitle {
+    /* color: var(--primary-color)!important; */
+    /* text-transform: uppercase; */
+    /* font-size: 1.25rem; */
+    /* font-weight: bold; */
+}
+
+.painel-apropriador .p-card-content {
+    /* color: var(--primary-color)!important; */
+    /* font-size: 0.9rem; */
+    /* padding: 0px!important; */
+    /* font-weight: bold; */
+}
+
+
+.painel-apropriador .bar-flex {
+    display: flex;
+    align-items: center;
+}
+
+.painel-apropriador .bar-flex > * {
+    margin: 3px;
+}
+
+.painel-apropriador .bar-flex.center {
+    justify-content: space-evenly;
+    /* margin-top: 1rem;     */
+    /* padding-left: 1rem; */
+    /* padding-right: 1rem; */
+}
+
+.painel-apropriador .bar-flex.left {
+    justify-content: left;
+    /* margin-top: 1rem;     */
+    /* padding-left: 1rem; */
+    /* padding-right: 1rem; */
+}
+
+.painel-apropriador .bar-flex.between {
+    justify-content: space-between;
+}
+

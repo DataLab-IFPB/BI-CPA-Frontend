@@ -1,13 +1,13 @@
 /* necessário para obter variáveis do tema, como cores entre outras... */
 @import 'primereact/resources/primereact.min.css';
 
-.questionarios .p-card.p-component {
+.paineis-apropriadores .p-card.p-component {
     border-left: 7px solid var(--primary-color);
     margin: 1rem 0rem;
 }
 
 
-.questionarios .p-card-title {
+.paineis-apropriadores .p-card-title {
     color: var(--primary-color);
     /* text-transform: uppercase; */
     /* font-size: 1rem!important; */
@@ -15,11 +15,11 @@
     
 }
 
-.questionarios .p-card-subtitle {
+.paineis-apropriadores .p-card-subtitle {
     /* color: var(--primary-color)!important; */
-    /* text-transform: uppercase;
-    font-size: 1.75rem; */
+    text-transform: uppercase;
     animation: blink 1s ease infinite;
+    /* font-size: 1.75rem; */
     /* font-weight: bold; */
 }
 
@@ -28,29 +28,29 @@
     100%{letter-spacing: 0px; opacity: 100%;}
 }
 
-.questionarios .p-card-content {
+.paineis-apropriadores .p-card-content {
     color: var(--primary-color);
-    /* font-size: 1.75em; */
+    /* font-size: 1.25rem; */
     /* padding: 0px!important; */
     /* font-weight: bold; */
 }
 
 
-.questionarios .questionario-actions {
+.paineis-apropriadores .questionario-actions {
     display: flex;
     justify-content: flex-end;
 }
 
-.questionarios .questionario-actions .p-button  {
+.paineis-apropriadores .questionario-actions .p-button  {
     margin-left: 5px;
 }
 
-.questionarios .p-card.p-component.respondido {
+.paineis-apropriadores .p-card.p-component.respondido {
     border-left: 7px solid var(--pink-500);
 }
-.questionarios .p-card-title.respondido,
-.questionarios .p-card-subtitle.respondido,
-.questionarios .p-card-content.respondido {
+.paineis-apropriadores .p-card-title.respondido,
+.paineis-apropriadores .p-card-subtitle.respondido,
+.paineis-apropriadores .p-card-content.respondido {
     color: var(--pink-500);
 }
 
@@ -93,11 +93,11 @@ div#card-item-title h1.title {
     font-size: 13pt;
 }
 
-div.card-item ul.lista-questionarios {
+div.card-item ul.lista-paineis-apropriadores {
     list-style: none;
 }
 
-div.card div.content ul.lista-questionarios li.item-questionario {
+div.card div.content ul.lista-paineis-apropriadores li.item-questionario {
     padding: 5px;
     margin: 20px;
 }

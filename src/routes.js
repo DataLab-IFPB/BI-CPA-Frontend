@@ -3,16 +3,18 @@ import { BrowserRouter, Route } from "react-router-dom";
 
 import TelaQuestionarios from "./pages/TelaQuestionarios";
 import TelaQuestionario from "./pages/TelaQuestionario";
-import QuestionarioFinalizado from "./pages/QuestionarioFinalizado";
-import QuestionarioGrupoQuestao from "./pages/QuestionarioGrupoQuestao";
+import TelaPaineisApropriadores from "./pages/TelaPaineisApropriadores";
+import TelaPainelApropriador from "./pages/TelaPainelApropriador";
 
 function Routes(){
     return (
         <BrowserRouter>
-            <Route exact path="/" component={TelaQuestionarios} />
-            <Route path="/questionario/:id" component={TelaQuestionario} />
-            {/* <Route path="/questionario_finalizado" component={QuestionarioFinalizado} />
-            <Route path="/questionario_grupo_questao" component={QuestionarioGrupoQuestao} /> */}
+            {/* {<Route exact path="/" component={TelaQuestionarios} />} */}
+            {/* {<Route path="/questionario/:id" component={TelaQuestionario} />} */}
+
+            {/* <Route path="/paineisapropriadores/" component={TelaPaineisApropriadores} /> */}
+            <Route exact path="/" component={TelaPaineisApropriadores} />
+            <Route path="/painelapropriador/:id" component={TelaPainelApropriador} />
           
         </BrowserRouter>
     );

@@ -16,9 +16,10 @@
 }
 
 body {
-  background: white;
+  /* background: white; */
   height: 100vh; /*Para que a aplicação ocupe toda a altura da tela*/
   width: 100vw;
+  background: var(--surface-c);
 }
 
 #root {
@@ -44,7 +45,7 @@ textarea {
 
 
 html {
-  font-size: 18px!important;
+  font-size: 16px!important;
 }
 
 @media (min-width: 700px) {

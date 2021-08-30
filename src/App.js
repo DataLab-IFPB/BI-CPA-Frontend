@@ -9,7 +9,8 @@ import {AppProvider} from "./AppProvider";
 import {PrimeReactCSS} from "primereact/resources/themes/saga-green/theme.css";
 import {PrimeReactMinCsss} from "primereact/resources/primereact.min.css";
 import {Icons} from "primeicons/primeicons.css";
-
+import 'primeflex/primeflex.css';
+ 
 
 import "./assets/styles/global.css";
 

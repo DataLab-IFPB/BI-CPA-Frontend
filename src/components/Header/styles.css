@@ -2,7 +2,7 @@
 @import 'primereact/resources/primereact.min.css';
 
 #Toolbar{
-    background: var(--color-cinza-claro);
+    background: var(--surface-d);
     border-radius: 5px;
     
 }

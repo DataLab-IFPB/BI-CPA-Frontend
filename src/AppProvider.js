@@ -19,20 +19,20 @@ export class AppProvider extends React.Component {
 
     state = {
         usuario: undefined,
+        metamodeloAvaliativo: undefined,
         questionarios: undefined
     }
 
     /**
      * @summary Carrega o usuário logado, por solicitação ao back-end via {GAS.request()};
      */
-    loadUsuario = () => {
+    loadParticipante = (email) => {
         let gasObj = GAS.getInstance();
-        gasObj.request('MCPAParticipante.instance.SERVICE.GETParticipante')
+        gasObj.request('MCPAParticipante.instance.SERVICE.GETParticipante', email)
             .then(RESPONSE => {
                 this.setState({
                     usuario: RESPONSE.response
                 });
-                this.loadQuestionarios(RESPONSE.response.email);
             })
             .catch((e) => { });
     }
@@ -51,8 +51,20 @@ export class AppProvider extends React.Component {
                 this.setState({
                     questionarios: questionarios
                 });
+            })
+            .catch((e) => { });
+    }
 
-                console.log(RESPONSE.response);
+    loadMetamodeloAvaliativo() {
+        let gasObj = GAS.getInstance();
+        gasObj.request('MCPAMetamodelo.instance.SERVICE.GETMetamodelo')
+            .then(RESPONSE => {
+                let metamodeloAvaliativo = RESPONSE.response;
+                //console.log(questionarios);
+
+                this.setState({
+                    metamodeloAvaliativo: metamodeloAvaliativo
+                });
             })
             .catch((e) => { });
     }
@@ -61,8 +73,18 @@ export class AppProvider extends React.Component {
      * Chamado quando o componente terminar de executar this.render()
      */
     componentDidMount() {
-        this.loadUsuario();        
+        let gasObj = GAS.getInstance();
+        gasObj.request('MCPAParticipante.instance.SERVICE.GETUsuario')
+            .then(RESPONSE => {
+                let usuarioEmail = 'giuseppe.lima@ifpb.edu.br' //RESPONSE.response;
+                //console.log(questionarios);
+                this.loadParticipante(usuarioEmail);
+                this.loadMetamodeloAvaliativo();
+                this.loadQuestionarios(usuarioEmail);
+            })
+            .catch((e) => { });
     }
+
 
     /**
      * @returns HTML{JSX} - relativo a este componente
@@ -73,7 +95,8 @@ export class AppProvider extends React.Component {
                 {
                     state: this.state,
                     setUsuario: (value) => this.setState({ usuario: value }),
-                    setQuestionarios: (value) => this.setState({ questionarios: value })
+                    setQuestionarios: (value) => this.setState({ questionarios: value }),
+                    setMetamodeloAvaliativo: (value) => this.setState({ metamodeloAvaliativo: value })
                 }
             }>
 

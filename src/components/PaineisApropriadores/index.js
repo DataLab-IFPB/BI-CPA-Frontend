@@ -15,13 +15,13 @@ import "./styles.css";
  * @param props{*}{props.respondidos}(boolean), renderiza questionários reconhecidos como respondidos.
  * 
  */
-export default class Questionarios extends React.Component {
+export default class PaineisApropriadores extends React.Component {
     /**
      * @summary Inicialização de estado mínima para renderização do cpmponente.
      */
     state = {
         activeIndex: 0,
-        questionarios: undefined
+        paineis: undefined
     }
 
     /**
@@ -40,9 +40,9 @@ export default class Questionarios extends React.Component {
      * @returns {*} - Null caso o repasse de valores props não afete o estado do componente. Caso afete o estado, retorna o objeto de parâmetro de entrada de this.setState()
      */
     static getDerivedStateFromProps(props, state) {
-        if (props.questionarios !== state.questionarios) {
+        if (props.paineis !== state.paineis) {
             return {
-                questionarios: props.questionarios
+                paineis: props.paineis
             };
         }
         return null;
@@ -55,10 +55,10 @@ export default class Questionarios extends React.Component {
      */
     render() {
         return (
-            <div className="questionarios">
+            <div className="paineis-apropriadores">
                 <Accordion activeIndex={this.state.activeIndex}>
+                    {/* {this.renderFiltros()} */}
                     {this.renderDisponiveis()}
-                    {this.renderRespondidos()}
                 </Accordion>
             </div>
         )
@@ -79,19 +79,19 @@ export default class Questionarios extends React.Component {
 
     /**
      * Renderiza botões com ação de responder, considerando o questionário passado como parâmetro.
-     * @param {*} questionario 
+     * @param {*} painel 
      * @returns 
      */
-    renderActions = (questionario) => {
+    renderActions = (painel) => {
         return (
             <span className="questionario-actions">
                 {/* REACT RUTER v4.0 -> SNIPPET: https://qastack.com.br/programming/31079081/programmatically-navigate-using-react-router */}
                 <Route render={(props) => (
-                    <Button label="RESPONDER" icon="pi pi-arrow-right" onClick={() => {
+                    <Button label="GERENCIAR PAINEL" icon="pi pi-arrow-right" onClick={() => {
                         //console.log(props.history)
                         props.history.push({
-                            pathname: `/questionario/id/${questionario.id}`,
-                            state: { questionario: questionario }
+                            pathname: `/painelapropriador/id/${painel.id}`,
+                            state: { painel: painel }
                         });
                     }} />
                 )} />
@@ -100,65 +100,39 @@ export default class Questionarios extends React.Component {
     };
 
     /**
-     * Renderiza um {AccordionTab} contendo diversos {Card} de listagem de questionários, desde que não tenham sido respondidos.
-     * @returns 
-     */
-    renderDisponiveis = () => {
-        if (this.props.disponiveis !== undefined && this.state.questionarios !== undefined) {
-            let questionariosDisponiveis = this.state.questionarios.filter(questionario => this.isQuestionarioDisponivel(questionario));
-
-            let renderSemQuestionarios = '';
-            if (questionariosDisponiveis.length === 0)
-                renderSemQuestionarios = this.renderSemQuestionarios;
-
-            return (
-                <AccordionTab header="Questionários disponíveis">
-                    {
-                        questionariosDisponiveis.map(questionario => {
-                            return (
-                                <Card key={questionario.id}
-                                    title={questionario.titulo}
-                                    subTitle={`QUESTIONÁRIO DISPONÍVEL ATÉ ${new Date(questionario.terminoAplicacao).toLocaleString()}`}
-                                    footer={this.renderActions(questionario)}>
-                                    {questionario.periodoLetivo}
-                                </Card>
-                            )
-                        })
-                    }
-
-                    {renderSemQuestionarios}
-                </AccordionTab>
-            );
-        }
-    }
-
-    /**
      * Renderiza um {AccordionTab} contendo diversos {Card} de listagem de questionários, mas somente daqueles já respondidos.
      * @returns 
      */
-    renderRespondidos = () => {
-        if (this.props.respondidos !== undefined && this.state.questionarios !== undefined) {
-            let questionariosRespondidos = this.state.questionarios.filter(questionario => !this.isQuestionarioDisponivel(questionario));
-            let renderSemQuestionarios = '';
-            if (questionariosRespondidos.length === 0)
-                renderSemQuestionarios = this.renderSemQuestionarios;
-
+    renderDisponiveis = () => {
+        let renderSemPaineisDisponiveis;
+        if (this.state.paineis === undefined)
+            renderSemPaineisDisponiveis = this.renderSemPaineisDisponiveis;
+        if (this.state.paineis !== undefined) {
             return (
-                <AccordionTab header="Questionários respondidos">
+                <AccordionTab header="Painéis apropriadores disponíveis">
                     {
-                        this.state.questionarios.filter(questionario => questionario.respostas).map(questionario => {
+                        this.state.paineis.map(painel => {
+                            let titulo = (
+                                <div>
+                                   <i className="pi pi-star" /> {painel.nivelOrganizacional['CAMPUS']}
+                                   <br />
+                                   <i className="pi pi-sitemap" /> {painel.nivelOrganizacional['CURSO']}  
+                                </div>
+                            );
                             return (
-                                <Card className="respondido"
-                                    key={questionario.id}
-                                    title={`RESPONDIDO EM ${new Date(questionario.terminoAplicacao).toLocaleString()}`}
-                                    subTitle={questionario.titulo}>
-                                    {questionario.periodoLetivo}
+                                <Card className="disponivel"
+                                    key={painel.id}
+                                    title={titulo}
+                                    subTitle={`PAINEL APROPRIADOR DISPONÍVEL ATÉ ${new Date(painel.terminoAplicacao).toLocaleString()}`}
+                                    footer={this.renderActions(painel)}>
+                                    
+                                   
                                 </Card>
                             )
                         })
                     }
 
-                    {renderSemQuestionarios}
+                    {renderSemPaineisDisponiveis}
                 </AccordionTab>
             );
         }
@@ -168,10 +142,10 @@ export default class Questionarios extends React.Component {
      * Renderização reutilizável de ícone exclamação + mensagem p/ questionários a responder ou respondidos.
      * @description Usado em {this.renderRespondidos()} e {this.renderDisponiveis()}
      */
-    renderSemQuestionarios = (
+    renderSemPaineisDisponiveis = (
         <p style={{ 'textAlign': "center" }}>
             <i className="pi pi-exclamation-triangle" style={{ 'fontSize': '2em' }}></i>
-            <br />Não há questionários para você nesta situação
+            <br />Não há painéis apropriadores disponíveis para você gerenciar.
         </p>
     )
 
