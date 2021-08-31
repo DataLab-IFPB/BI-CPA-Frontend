@@ -5,7 +5,7 @@ import { Route } from 'react-router-dom'
 import { Card } from 'primereact/card';
 import { Button } from "primereact/button";
 import { RadioButton } from 'primereact/radiobutton';
-
+import { Toast } from 'primereact/toast';
 import { Steps } from 'primereact/steps';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
@@ -36,7 +36,6 @@ export default class Questionario extends React.Component {
      */
     constructor(props) {
         super(props);
-
     }
 
     /**
@@ -53,15 +52,19 @@ export default class Questionario extends React.Component {
         }
         return null;
     }
-
-    componentDidMount() {
+    
+    
+    showMessage(type, summary, detail) {
+        this.toast.show({ severity: type, summary: summary, detail: detail, life: 10000, closable: false });
     }
-
+    
+    
+    
     /**
-      * @summary 3º na chamada de montagem do componente.
-      * @description Elabora o JSX que define o componente.
-      * @returns HTML{JSX} - relativo a este componente
-      */
+     * @summary 3º na chamada de montagem do componente.
+     * @description Elabora o JSX que define o componente.
+     * @returns HTML{JSX} - relativo a este componente
+     */
     render() {
         let renderDialog, renderQuestionario, renderPreposEtapa;
         if (this.state.startResponder) {
@@ -74,12 +77,13 @@ export default class Questionario extends React.Component {
                 // console.log(this.state.etapa)
                 renderPreposEtapa = this.renderPrePosEtapa(this.state.questionario.textoFinal, this.state.etapa);
             } else if (this.state.etapa === 'Q') {
+                // console.log(this.state.questionario)
                 // console.log(this.state.etapa)
                 renderQuestionario = (
                     <div>
                         <div className="questionario-etapas">
-                            <Steps model={this.etapas()} activeIndex={this.state.etapaGrupoQuestaoSelecionado} onSelect={(e) => this.setState({ etapaGrupoQuestaoSelecionado: e.index })} /*readOnly={false}*/ />
                             <div>{this.state.questionario.gruposQuestoes[this.state.etapaGrupoQuestaoSelecionado].descricao}</div>
+                            <Steps model={this.etapas()} activeIndex={this.state.etapaGrupoQuestaoSelecionado} onSelect={(e) => this.setState({ etapaGrupoQuestaoSelecionado: e.index })} /*readOnly={false}*/ />
                         </div>
 
                         <Panel>
@@ -91,16 +95,17 @@ export default class Questionario extends React.Component {
                 )
             }
         }
-
+        
         return (
             <div className="questionario">
+                <Toast ref={(el) => this.toast = el} position="top-right" />
                 {renderDialog}
                 {renderPreposEtapa}
                 {renderQuestionario}
             </div>
         )
     }
-
+    
     /**
      * @summary 4º na chamada de montagem do componente.
      * @description Funções/ações cuja lógica exija que o JSX do componente já esteja inserido na árvore DOM do navegador somente deve ser chamadas aqui.
@@ -110,9 +115,16 @@ export default class Questionario extends React.Component {
      * 3. Este método é um bom lugar para colocar qualquer subscrição. Se fizer isto, não esqueça de desinscrever no componentWillUnmount().
      */
     componentDidMount() {
-
+        
     }
-
+    
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.etapaGrupoQuestaoSelecionado !== this.state.etapaGrupoQuestaoSelecionado ||
+            prevState.etapa !== this.state.etapa) {
+            window.scrollTo(0, 0);
+        }
+    }
+    
     /**
      * Renderização por mapeamento de {questionario.gruposQuestoes} para uso como propriedade do componente {Steps.model} em {this.render()}
      * @returns 
@@ -122,9 +134,6 @@ export default class Questionario extends React.Component {
             return this.state.questionario.gruposQuestoes.map(grupoQuestao => {
                 return {
                     label: grupoQuestao.titulo,
-                    // command: (event) => {
-                    //     //toast.current.show({severity:'info', summary:'First Step', detail: event.item.label});
-                    // }
                 }
             })
         }
@@ -163,8 +172,12 @@ export default class Questionario extends React.Component {
      * @returns 
      */
     handleAvancarEtapaGrupoQuestao(etapaIndex) {
-        if (etapaIndex > 0 && !this.updateValidarRespostas())
-            return;
+        if (etapaIndex > 0) {
+            if (!this.updateValidarRespostas()) {
+                this.showMessage('error', 'ATENÇÃO!', (<div>Avalie as questões ou indicadores em <b>VERMELHO</b> para poder <i className="pi pi-arrow-right" /> AVANÇAR esta etapa do questionário.</div>));
+                return;
+            }
+        }
 
         let qtdGruposQuestoes = this.state.questionario.gruposQuestoes.length;
         let etapaGrupoQuestaoAtual = this.state.etapaGrupoQuestaoSelecionado;
@@ -190,22 +203,40 @@ export default class Questionario extends React.Component {
         let gasObj = GAS.getInstance();
         let questionario = this.state.questionario;
 
-        /*
-        1. Verificar se questionário possui respostas para todos os indicadores em this.state[indicadorId]
-        2.1 Setar cada questao dimensionalizada fechada (c/ indicador) para adicionar-lhes a propriedade 'resposta', sendo o valor da mesma o index do item de escala avalitiva, que já é o entregue por this.state[indicadorId]
-        2.2 Setar cada questao aberta para adicionar-lhes a propriedade resposta
-        3. realizar GAS.request() passando o questionário
-        4. Se bem sucedido, adicionar a propriedade respondido = true ao questionário e retornar a tela de listagem de quesitionários
-        5. Se mal sucedido, mostrar que não foi possível enviar as respostas, devendo entrar em contato avaliacao@ifpb.edu.br.
-        */
+        //Iterando Sobre Grupo Questão 
+        questionario.gruposQuestoes.forEach((grupoQuestao) => {
 
-        /*gasObj.request('MCPAQuestionario.instance.SERVICE.POSTRespostasQuestionario', questionario)
-             .then((RESPONSE) => {
-                 questionario.respostas = true;
-                 props.history.push({ pathname: `/` });
-             }).catch((e) => {
- 
-             });*/
+            //Iterando Sobre Cada Questão
+            grupoQuestao.questoes.forEach((questao) => {
+                if (this.isQuestaoDimensionalizadaFechada(questao)) {
+                    //Iterando Sobre cada indicador 
+                    questao.indicadores.forEach((indicador) => {
+                        let resposta = this.state[indicador.id];
+                        indicador.resposta = resposta;
+                    });
+                }
+                else if (this.isQuestaoAberta(questao)) {
+                    let resposta = this.state[questao.id];
+                    questao.resposta = resposta;
+                }
+            });
+        });
+        questionario.respondidoEm = new Date().toISOString();
+
+        // 4. Se bem sucedido, adicionar a propriedade respondido = true ao questionário e retornar a tela de listagem de quesitionários
+        // 5. Se mal sucedido, mostrar que não foi possível enviar as respostas, devendo entrar em contato avaliacao@ifpb.edu.br.
+
+
+        gasObj.request('MCPAQuestionario.instance.SERVICE.POSTRespostasQuestionario', questionario, this.props.usuario)
+            .then((RESPONSE) => {
+                questionario.respostas = true;
+                this.showMessage('success', 'SUCESSO!', 'Sua avaliação foi registrada com sucesso.');
+                setTimeout(() => {
+                    props.history.push({ pathname: `/` });
+                }, 8000)
+            }).catch((e) => {
+                this.showMessage('error', 'ERRO!', 'Não foi possível registrar a sua avaliação. Tente novamente e se o problema persistir contate avaliacao@ifpb.edu.br');
+            });
 
     }
 
@@ -235,7 +266,7 @@ export default class Questionario extends React.Component {
                     element.classList.add('resposta-valida');
                 });
             }
-        });''
+        });
 
         return countInvalidades === 0;
         //varre todas as questões do tipo DIMENSIONALIZADA_FECHADA (indicador !== undefined) e para cada um analisa se há resposta.
@@ -318,7 +349,9 @@ export default class Questionario extends React.Component {
             // console.log(questao.id);
             return (
                 <DataTable id={questao.id} autoLayout={true} className="indicadores" value={questao.indicadores} stripedRows>
-                    <Column field="indicador" header="Indicador" />
+                    <Column field="indicador" header="Indicador" body={(rowData, index) => {
+                        return (<div dangerouslySetInnerHTML={{ __html: rowData.indicador }} />)
+                    }} />
                     <Column id="id" field="id" header="Escala Avaliativa" body={(rowData, props) => {
                         return escalaAvaliativa.map((itemEscalaAvaliativa, indexItemEscalaAvaliativa) => {
                             let indicadorId = rowData.id;
@@ -420,10 +453,10 @@ export default class Questionario extends React.Component {
         return (
             <Dialog closable={false} header="Você deseja confirmar a sua participação?" footer={footer} visible={this.state[dialogName]} style={{ width: '85vw' }} modal onHide={() => this.onHide(dialogName)} >
                 <ol style={{ lineHeight: '1.5rem', listStylePosition: 'inside', display: 'flex', flexDirection: 'column' }}>
-                    <li>1. As respostas são armazenadas sem indentificá-lo, preservando o seu anonimato.<br /></li>
-                    <li>2. Ao prosseguir com este questionário você concorda em participar do processo avaliativo.<br /></li>
-                    <li>3. O questionário não poderá mais ser mais modificado depois de enviado.<br /></li>
-                    <li>4. Passe por cada etapa do questionário usando os botões no início e no final da tela para
+                    <li>As respostas são armazenadas sem indentificá-lo, preservando o seu anonimato.<br /></li>
+                    <li>Ao prosseguir com este questionário você concorda em participar do processo avaliativo.<br /></li>
+                    <li>O questionário não poderá mais ser mais modificado depois de enviado.<br /></li>
+                    <li>Passe por cada etapa do questionário usando os botões no início e no final da tela para
                         <span style={{ 'color': 'var(--green-500)' }}>  AVANÇAR (verde)</span>
                         ou <span style={{ 'color': 'var(--pink-500)' }}>RETROCEDER (vermelho)</span> etapas do questionário.</li>
                 </ol>

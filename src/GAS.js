@@ -14,7 +14,7 @@ export default class GAS {
 
     static _instance = null;
     modulo = null;
-    GAS_DOMAIN_IFRAME = "n-ca4cgm362sqjoxuzuprc7rrzekcxvqqzhi4jwwy"
+    GAS_DOMAIN_IFRAME = "*";//"https://n-ca4cgm362sqjoxuzuprc7rrzekcxvqqzhi4jwwy-0lu-script.googleusercontent.com"
     GAS_DOMAN_DEV = "https://script.google.com/a/macros/ifpb.edu.br/s/AKfycbwvZi6D-udCXUXzwICweA9uZ3PGWCdPRMz2vWG-79I/dev";
 
     constructor() {

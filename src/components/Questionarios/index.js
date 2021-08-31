@@ -57,8 +57,8 @@ export default class Questionarios extends React.Component {
         return (
             <div className="questionarios">
                 <Accordion activeIndex={this.state.activeIndex}>
-                    {this.renderDisponiveis()}
-                    {this.renderRespondidos()}
+                    {this.renderQuestionarios(true)}
+                    {this.renderQuestionarios(false)}
                 </Accordion>
             </div>
         )
@@ -103,56 +103,40 @@ export default class Questionarios extends React.Component {
      * Renderiza um {AccordionTab} contendo diversos {Card} de listagem de questionários, desde que não tenham sido respondidos.
      * @returns 
      */
-    renderDisponiveis = () => {
+    renderQuestionarios = (disponiveis) => {
         if (this.props.disponiveis !== undefined && this.state.questionarios !== undefined) {
-            let questionariosDisponiveis = this.state.questionarios.filter(questionario => this.isQuestionarioDisponivel(questionario));
-
+            let questionariosDisponiveis = this.state.questionarios.filter(questionario => (disponiveis)? this.isRespondido(questionario) : !this.isRespondido(questionario));
             let renderSemQuestionarios = '';
             if (questionariosDisponiveis.length === 0)
                 renderSemQuestionarios = this.renderSemQuestionarios;
 
+            let titulo = (questionario) => (
+                <div>
+                    <i className="pi pi-calendar" /> {questionario.periodoLetivo}
+                    <br />
+                    <i className="pi pi-star" /> {questionario.titulo}
+                </div>
+            );
+
+            let subtitulo = (questionario) => {
+                return (disponiveis)? `QUESTIONÁRIO DISPONÍVEL ATÉ ${new Date(questionario.terminoAplicacao).toLocaleString()}` : `QUESTIONÁRIO RESPONDIDO EM ${new Date(questionario.respondidoEm).toLocaleString()}`;
+            }
+
+            let className = (disponiveis)? '' : 'respondido';
+
+            let footer = (questionario) => {
+                return (disponiveis)? this.renderActions(questionario) : '';
+            } 
+
             return (
-                <AccordionTab header="Questionários disponíveis">
+                <AccordionTab header={(disponiveis)? 'Questionários disponíveis' : 'Questionários respondidos'}>
                     {
                         questionariosDisponiveis.map(questionario => {
                             return (
-                                <Card key={questionario.id}
-                                    title={questionario.titulo}
-                                    subTitle={`QUESTIONÁRIO DISPONÍVEL ATÉ ${new Date(questionario.terminoAplicacao).toLocaleString()}`}
-                                    footer={this.renderActions(questionario)}>
-                                    {questionario.periodoLetivo}
-                                </Card>
-                            )
-                        })
-                    }
-
-                    {renderSemQuestionarios}
-                </AccordionTab>
-            );
-        }
-    }
-
-    /**
-     * Renderiza um {AccordionTab} contendo diversos {Card} de listagem de questionários, mas somente daqueles já respondidos.
-     * @returns 
-     */
-    renderRespondidos = () => {
-        if (this.props.respondidos !== undefined && this.state.questionarios !== undefined) {
-            let questionariosRespondidos = this.state.questionarios.filter(questionario => !this.isQuestionarioDisponivel(questionario));
-            let renderSemQuestionarios = '';
-            if (questionariosRespondidos.length === 0)
-                renderSemQuestionarios = this.renderSemQuestionarios;
-
-            return (
-                <AccordionTab header="Questionários respondidos">
-                    {
-                        this.state.questionarios.filter(questionario => questionario.respostas).map(questionario => {
-                            return (
-                                <Card className="respondido"
-                                    key={questionario.id}
-                                    title={`RESPONDIDO EM ${new Date(questionario.terminoAplicacao).toLocaleString()}`}
-                                    subTitle={questionario.titulo}>
-                                    {questionario.periodoLetivo}
+                                <Card className={className} key={questionario.id}
+                                    title={titulo(questionario)}
+                                    subTitle={subtitulo(questionario)}
+                                    footer={footer(questionario)}>
                                 </Card>
                             )
                         })
@@ -180,7 +164,7 @@ export default class Questionarios extends React.Component {
      * @param {*} questionario 
      * @returns (boolean) - true, se questionário é reconhecido como disponível para responder.
      */
-    isQuestionarioDisponivel(questionario) {
-        return !questionario.respostas;
+    isRespondido(questionario) {
+        return !questionario.respondidoEm;
     }
 }

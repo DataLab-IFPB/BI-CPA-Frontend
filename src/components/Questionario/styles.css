@@ -10,9 +10,10 @@
     margin: 1rem 0rem;
 }
 
-.questionario .p-card-title {
+.questionario .p-card-title u {
     /* font-weight: normal; */
-    color:var(--primary-color);
+    color: var(--primary-color);
+    text-transform: uppercase;
 }
 
 .questionario .p-card-subtitle {
@@ -42,16 +43,16 @@
 
 .questionario .questionario-actions .p-button  {
     margin-left: 5px;
-    animation: zoom-in-zoom-out 2s linear; 
+    animation: zoom-in-zoom-out-normal 2s linear; 
     animation-iteration-count: 2;
 }
 @keyframes blink{
-    0%{opacity: 0;}
-    50%{opacity: .5;}
+    0%{opacity: .5;}
+    50%{opacity: .75;}
     100%{opacity: 1;}
 }
 
-@keyframes zoom-in-zoom-out {
+@keyframes zoom-in-zoom-out-normal {
     0% {
         transform: scale(1, 1);
     }
@@ -63,27 +64,39 @@
     }
 }
 
+@keyframes zoom-in-zoom-out-heavy {
+    0% {
+        transform: scale(1.1, 1.15);
+    }
+    50% {
+        transform: scale(0.7, 0.7);
+    }
+    100% {
+        transform: scale(1.1, 1.15);
+    }
+}
+
 .questionario .questionario-etapas {
     position: fixed;
     top: 80px;
     left: 0px;
     right: 0px;
-    background: white;
+    background:var(--surface-c);
     padding-bottom: 20px;
     padding-top: 20px;
-    z-index: 10000;
-    border-bottom: 5px solid var(--primary-color);
-    border-top: 5px solid var(--primary-color);
+    z-index: 999;
     display: flex;
     flex-direction: column;
-    padding: 0.5rem;
 }
 
-.questionario .questionario-etapas div:nth-child(2) {
-    /* text-align: center; */
-    padding: 0.5rem 1rem;
-    color: var(--primary-color);
-    font-size: 0.95rem;
+.questionario .p-steps .p-steps-item .p-menuitem-link {
+    background: inherit;
+}
+
+.questionario .questionario-etapas div:nth-child(1) {
+    text-align: center;
+    padding: 0.5rem 5rem;
+    color: var(--text-color-secondary);
 }
 
 .questionario .questionario-etapas + *{
@@ -96,12 +109,14 @@
     white-space: normal;
     word-wrap: break-word;
     text-align: center;
-    color: var(--primary-color)!important;
+    /* color: var(--primary-color)!important; */
 }
 
 .questionario .p-steps-current .p-steps-number {
+    font-weight: bold;
     background: var(--primary-color)!important;
     color: #E8F5E9!important;
+    animation: zoom-in-zoom-out-heavy 5s linear infinite; 
 }
 
 .questionario .p-steps-item {

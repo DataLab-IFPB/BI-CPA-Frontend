@@ -25,7 +25,7 @@ function TelaQuestionario(props) {
         {(context) => (
           <div>
             <Header usuario={context.state.usuario} />
-            <Questionario questionario={questionario} />
+            <Questionario usuario={context.state.usuario} questionario={questionario} />
           </div>
         )}
       </AppProvider.Context.Consumer>
