@@ -66,9 +66,7 @@ export default class Header extends React.Component {
         let renderEmail = '';
         if (this.state.usuario !== undefined) {
             renderEmail = (<span id="usuario">{this.state.usuario.email}</span>);
-        } else {
-            renderEmail = (<span id="usuario" className="is-loading"></span>);
-        }
+        } 
 
         return (
             <div id="logo-bar">              

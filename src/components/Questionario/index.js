@@ -55,7 +55,7 @@ export default class Questionario extends React.Component {
     
     
     showMessage(type, summary, detail) {
-        this.toast.show({ severity: type, summary: summary, detail: detail, life: 10000, closable: false });
+        this.toast.show({ severity: type, summary: summary, detail: detail, life: 8000, closable: false });
     }
     
     
@@ -98,7 +98,7 @@ export default class Questionario extends React.Component {
         
         return (
             <div className="questionario">
-                <Toast ref={(el) => this.toast = el} position="top-right" />
+                <Toast ref={(el) => this.toast = el} position="top-left" />
                 {renderDialog}
                 {renderPreposEtapa}
                 {renderQuestionario}
@@ -174,7 +174,8 @@ export default class Questionario extends React.Component {
     handleAvancarEtapaGrupoQuestao(etapaIndex) {
         if (etapaIndex > 0) {
             if (!this.updateValidarRespostas()) {
-                this.showMessage('error', 'ATENÇÃO!', (<div>Avalie as questões ou indicadores em <b>VERMELHO</b> para poder <i className="pi pi-arrow-right" /> AVANÇAR esta etapa do questionário.</div>));
+                this.showMessage('error', 'ATENÇÃO!', (<div>É necessário avaliar as questões ou indicadores em <b>VERMELHO</b> antes de <i className="pi pi-arrow-right" / ><b>AVANÇAR</b>.</div>));
+                window.scrollTo(0, 0);
                 return;
             }
         }
@@ -227,13 +228,14 @@ export default class Questionario extends React.Component {
         // 5. Se mal sucedido, mostrar que não foi possível enviar as respostas, devendo entrar em contato avaliacao@ifpb.edu.br.
 
 
-        gasObj.request('MCPAQuestionario.instance.SERVICE.POSTRespostasQuestionario', questionario, this.props.usuario)
+        gasObj.request('MCPAQuestionario.instance.SERVICE.POSTRespostasQuestionario', questionario, this.props.usuario.email)
             .then((RESPONSE) => {
                 questionario.respostas = true;
                 this.showMessage('success', 'SUCESSO!', 'Sua avaliação foi registrada com sucesso.');
+                this.setState({etapa: undefined});
                 setTimeout(() => {
                     props.history.push({ pathname: `/` });
-                }, 8000)
+                }, 5000)
             }).catch((e) => {
                 this.showMessage('error', 'ERRO!', 'Não foi possível registrar a sua avaliação. Tente novamente e se o problema persistir contate avaliacao@ifpb.edu.br');
             });

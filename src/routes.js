@@ -9,12 +9,12 @@ import TelaPainelApropriador from "./pages/TelaPainelApropriador";
 function Routes(){
     return (
         <BrowserRouter>
-            {/* {<Route exact path="/" component={TelaQuestionarios} />} */}
-            {/* {<Route path="/questionario/:id" component={TelaQuestionario} />} */}
+            {<Route exact path="/" component={TelaQuestionarios} />}
+            {<Route path="/questionario/:id" component={TelaQuestionario} />}
 
             {/* <Route path="/paineisapropriadores/" component={TelaPaineisApropriadores} /> */}
-            <Route exact path="/" component={TelaPaineisApropriadores} />
-            <Route path="/painelapropriador/:id" component={TelaPainelApropriador} />
+            {/* <Route exact path="/" component={TelaPaineisApropriadores} /> */}
+            {/* <Route path="/painelapropriador/:id" component={TelaPainelApropriador} /> */}
           
         </BrowserRouter>
     );

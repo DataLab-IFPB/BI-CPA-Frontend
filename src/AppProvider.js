@@ -76,7 +76,7 @@ export class AppProvider extends React.Component {
         let gasObj = GAS.getInstance();
         gasObj.request('MCPAParticipante.instance.SERVICE.GETUsuario')
             .then(RESPONSE => {
-                let usuarioEmail = 'giuseppe.lima@ifpb.edu.br' //RESPONSE.response;
+                let usuarioEmail = 'acauan.gomes@academico.ifpb.edu.br' //RESPONSE.response;
                 //console.log(questionarios);
                 this.loadParticipante(usuarioEmail);
                 this.loadMetamodeloAvaliativo();
