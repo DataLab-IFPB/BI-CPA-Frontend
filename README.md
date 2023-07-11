@@ -1,3 +1,6 @@
+# [DEPRECATED PROJECT]
+
+
 
 # URL dev para ambiente back-end de desenvolvimento
 Se estiver testando com {GAS}(object), use a URL /dev ou /exec disponível no projeto GAS: https://script.google.com/a/macros/ifpb.edu.br/s/AKfycbwvZi6D-udCXUXzwICweA9uZ3PGWCdPRMz2vWG-79I/dev
